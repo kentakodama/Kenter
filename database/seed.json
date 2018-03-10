@@ -1,33 +1,35 @@
 {
-  "8934nvdifnva;sodnvfnkjdfv": {
-    "id": "8934nvdifnva;sodnvfnkjdfv",
-    "name": "Rachel Moore",
-    "photoURL": "https://scontent.xx.fbcdn.net/v/t1.0-1/p100x100/10994642_10153179492894136_9142583348939320953_n.jpg?oh=51b1dddd377fc857f5844d65821ed011&oe=5B043DDC"
-  },
-  "8adfvaddfv": {
-    "id": "8adfvaddfv",
-    "name": "Katrina Lui",
-    "photoURL": "https://scontent.xx.fbcdn.net/v/t1.0-1/p100x100/10994642_10153179492894136_9142583348939320953_n.jpg?oh=51b1dddd377fc857f5844d65821ed011&oe=5B043DDC"
-  },
-  "444ddfv": {
-    "id": "444ddfv",
-    "name": "Chris Kim",
-    "photoURL": "https://scontent.xx.fbcdn.net/v/t1.0-1/p100x100/10994642_10153179492894136_9142583348939320953_n.jpg?oh=51b1dddd377fc857f5844d65821ed011&oe=5B043DDC"
-  },
-  "asdsdf2311": {
-    "id": "asdsdf2311",
-    "name": "Andres Alfaro",
-    "photoURL": "https://scontent.xx.fbcdn.net/v/t1.0-1/p100x100/10994642_10153179492894136_9142583348939320953_n.jpg?oh=51b1dddd377fc857f5844d65821ed011&oe=5B043DDC"
-  },
-  "6dcsdasdk499r9w": {
-    "id": "6dcsdasdk499r9w",
-    "name": "Julie Lin",
-    "photoURL": "https://scontent.xx.fbcdn.net/v/t1.0-1/p100x100/10994642_10153179492894136_9142583348939320953_n.jpg?oh=51b1dddd377fc857f5844d65821ed011&oe=5B043DDC"
-  },
-  "6dcsdasdk499r9w": {
-    "id": "6dcsdasdk499r9w",
-    "name": "Logan Cooper",
-    "photoURL": "https://scontent.xx.fbcdn.net/v/t1.0-1/p100x100/10994642_10153179492894136_9142583348939320953_n.jpg?oh=51b1dddd377fc857f5844d65821ed011&oe=5B043DDC"
-  }
+    "users": {
 
+        "8934nvdifnva;sodnvfnkjdfv": {
+          "id": "8934nvdifnva;sodnvfnkjdfv",
+          "name": "Rachel Moore",
+          "photoURL": "https://scontent.xx.fbcdn.net/v/t1.0-1/p100x100/10994642_10153179492894136_9142583348939320953_n.jpg?oh=51b1dddd377fc857f5844d65821ed011&oe=5B043DDC"
+        },
+        "8adfvaddfv": {
+          "id": "8adfvaddfv",
+          "name": "Katrina Lui",
+          "photoURL": "https://scontent.xx.fbcdn.net/v/t1.0-1/p100x100/10994642_10153179492894136_9142583348939320953_n.jpg?oh=51b1dddd377fc857f5844d65821ed011&oe=5B043DDC"
+        },
+        "444ddfv": {
+          "id": "444ddfv",
+          "name": "Chris Kim",
+          "photoURL": "https://scontent.xx.fbcdn.net/v/t1.0-1/p100x100/10994642_10153179492894136_9142583348939320953_n.jpg?oh=51b1dddd377fc857f5844d65821ed011&oe=5B043DDC"
+        },
+        "asdsdf2311": {
+          "id": "asdsdf2311",
+          "name": "Andres Alfaro",
+          "photoURL": "https://scontent.xx.fbcdn.net/v/t1.0-1/p100x100/10994642_10153179492894136_9142583348939320953_n.jpg?oh=51b1dddd377fc857f5844d65821ed011&oe=5B043DDC"
+        },
+        "6dcsdasdk499r9w": {
+          "id": "6dcsdasdk499r9w",
+          "name": "Julie Lin",
+          "photoURL": "https://scontent.xx.fbcdn.net/v/t1.0-1/p100x100/10994642_10153179492894136_9142583348939320953_n.jpg?oh=51b1dddd377fc857f5844d65821ed011&oe=5B043DDC"
+        },
+        "6dcsdasdk499r9w": {
+          "id": "6dcsdasdk499r9w",
+          "name": "Logan Cooper",
+          "photoURL": "https://scontent.xx.fbcdn.net/v/t1.0-1/p100x100/10994642_10153179492894136_9142583348939320953_n.jpg?oh=51b1dddd377fc857f5844d65821ed011&oe=5B043DDC"
+        }
+  }
 }
