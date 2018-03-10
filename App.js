@@ -9,18 +9,34 @@ const {
   AccessToken
 } = FBSDK;
 
+
+import getUser from './src/api_util/api_util'
+
 firebaseRef();
 
 export default class App extends React.Component {
 
 
   initUser(user) {
+
     var db = firebase.database();
-      //this routes to packtpub then to user 1234
-      db.ref('users').push({
-          name: user.displayName,
-          photoURL: user.photoURL
+
+      let key = user.uid
+      let userRef = db.ref(`users/${key}`);
+
+      userRef.once('value', (snapshot) => {
+          if (snapshot.val()) {
+            console.log('user already exists');
+            return
+          }
+          let newUser = {
+            id: key,
+            name: user.displayName,
+            photoURL: user.photoURL
+          }
+          userRef.set(newUser)
       });
+
   }
 
   render() {
