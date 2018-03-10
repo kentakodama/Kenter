@@ -13,34 +13,19 @@ firebaseRef();
 
 export default class App extends React.Component {
 
-  // _fbAuth() {
-  //   LoginManager.logInWithReadPermissions(['public_profile']).then(function(result) {
-  //     if (result.isCancelled) {
-  //       console.log("Login Cancelled");
-  //     } else {
-  //       console.log(result);
-  //       console.log("Login Success permission granted:" + result.grantedPermissions);
-  //     }
-  //   }, function(error) {
-  //      console.log("some error occurred!!");
-  //   })
-  // }
-  //
-  // render() {
-  //   return (
-  //     <View style={styles.container}>
-  //      <TouchableOpacity onPress={this._fbAuth}>
-  //        <Text>
-  //          Login With Facebook
-  //        </Text>
-  //      </TouchableOpacity>
-  //     </View>
-  //   );
-  // }
+
+  initUser(user) {
+    var db = firebase.database();
+      //this routes to packtpub then to user 1234
+      db.ref('users').push({
+          name: user.displayName,
+          photoURL: user.photoURL
+      });
+  }
 
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         <LoginButton
           readPermissions={['public_profile', 'email']}
           onLoginFinished={
@@ -59,6 +44,7 @@ export default class App extends React.Component {
                     })
                     .then((user) => {
                       console.log('user object', user);
+                      this.initUser(user)
                       // If you need to do anything with the user, do it here
                       // The user will be logged in automatically by the
                       // `onAuthStateChanged` listener we set up in App.js earlier
