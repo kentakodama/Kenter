@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, AsyncStorage } from 'react-native';
 import * as firebase from 'firebase';
 const FBSDK = require('react-native-fbsdk');
 const {
@@ -9,8 +9,9 @@ const {
 } = FBSDK;
 
 import getUser from '../api_util/api_util'
+import AppNavigator from '../navigation/app_navigation'
 
-export default class Login extends React.Component {
+class Login extends React.Component {
 
 
   initUser(user) {
@@ -32,6 +33,16 @@ export default class Login extends React.Component {
           }
           userRef.set(newUser)
       });
+      this.storeId(key);
+  }
+
+  async storeId(id) {
+    try {
+      await AsyncStorage.setItem('@kenterId:key', id);
+    } catch (error) {
+      // Error saving data
+      console.log('cant save id in storage');
+    }
 
   }
 
@@ -82,3 +93,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export default Login

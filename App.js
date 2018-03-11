@@ -1,26 +1,34 @@
 import React from 'react';
+import { Provider } from 'react-redux';
+import configureStore from './src/store/store';
+
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import firebaseRef from './src/firebase.js'
 import * as firebase from 'firebase';
-const FBSDK = require('react-native-fbsdk');
-const {
-  LoginButton,
-  LoginManager,
-  AccessToken
-} = FBSDK;
-import Login from './src/Authentication/login'
+import AppNavigator from './src/navigation/app_navigation'
+import { StackNavigator} from 'react-navigation';
 
-import getUser from './src/api_util/api_util'
 
 firebaseRef();
 
 export default class App extends React.Component {
 
   render() {
+    // const store = configureStore();
     return (
-      <Login/>
-    );
+      <Provider>
+        <AppNavigator />
+      </Provider>
+    )
   }
+  // render() {
+  //   const store = configureStore();
+  //   return (
+  //     <Provider store={store}>
+  //       <AppNavigator />
+  //     </Provider>
+  //   )
+  // }
 }
 
 const styles = StyleSheet.create({

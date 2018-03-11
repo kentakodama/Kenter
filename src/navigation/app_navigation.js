@@ -1,31 +1,16 @@
 import { StackNavigator} from 'react-navigation';
 
-export default const AppNavigator = StackNavigator(
+import Login from '../authentication/login';
+import Splash from '../authentication/splash';
+
+const AppNavigator = StackNavigator(
 
   {
     Index: {
       screen: Splash
     },
-    StripeLogoPage: {
-      screen: StripeLogoPage
-    },
-    NewCardPage: {
-      screen: NewCardPage
-    },
-    SimpleApp: {
-      screen: SimpleApp
-    },
-    Signup: {
-      screen: Signup
-    },
-    Cart: {
-      screen: Cart
-    },
-    CheckOut: {
-      screen: CheckOut
-    },
-    Confirmation: {
-      screen: Confirmation
+    Login: {
+      screen: Login
     }
   },
   {
@@ -33,3 +18,5 @@ export default const AppNavigator = StackNavigator(
     headerMode: 'none',
   }
 );
+
+export default AppNavigator;
