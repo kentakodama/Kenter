@@ -20,8 +20,8 @@ class Splash extends React.Component {
 
   fetchId() {
     const { navigate } = this.props.navigation;
-    // const getUser = (id) = this.props.getUser
-
+    //the id is the facebook id, instead of using AsyncStorage facebook id is already stored in phone
+    //as long as phone has facebook, this will work 
     AccessToken.getCurrentAccessToken().then((token) => {
       if(token) {
         firebase.database().ref(`users/${token.userID}`)

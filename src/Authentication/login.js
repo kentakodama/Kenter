@@ -7,15 +7,17 @@ const {
   LoginManager,
   AccessToken
 } = FBSDK;
+import { connect } from 'react-redux';
 
 import getUser from '../api_util/api_util'
 import AppNavigator from '../navigation/app_navigation'
+import { receiveUser } from '../actions/user_actions';
 
 class Login extends React.Component {
 
 
   initUser(user, id) {
-
+    const { navigate } = this.props.navigation;
     var db = firebase.database();
 
       let userRef = db.ref(`users/${id}`);
@@ -32,20 +34,11 @@ class Login extends React.Component {
           }
           userRef.set(newUser)
       })
-      // .then(() => this.storeId(key))
-      // .then(() => getUser(key))
+      this.props.receiveUser(id)
+      navigate('Main')
 
   }
 
-  async storeId(id) {
-    try {
-      await AsyncStorage.setItem('@kenterId:key', id);
-    } catch (error) {
-      // Error saving data
-      console.log('cant save id in storage');
-    }
-
-  }
 
   render() {
     return (
@@ -66,15 +59,12 @@ class Login extends React.Component {
                       // Login with the credential
                       firebase.auth().signInWithCredential(credential)
                       .then((user) => {
-                        console.log('user object', user);
                         this.initUser(user, data.userID)
                       })
                     })
                     .catch((error) => {
                       const { code, message } = error;
-                      // For details of error codes, see the docs
-                      // The message contains the default Firebase string
-                      // representation of the error
+                      console.log(code, message);
                     });
               }
             }
@@ -95,4 +85,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Login
+const mapDispatchToProps = (dispatch) => ({
+  receiveUser: (id) => dispatch(receiveUser(id))
+});
+
+export default connect(null, mapDispatchToProps)(Login);
