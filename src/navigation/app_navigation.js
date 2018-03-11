@@ -2,6 +2,7 @@ import { StackNavigator} from 'react-navigation';
 
 import Login from '../authentication/login';
 import Splash from '../authentication/splash';
+import Main from '../components/main';
 
 const AppNavigator = StackNavigator(
 
@@ -11,6 +12,9 @@ const AppNavigator = StackNavigator(
     },
     Login: {
       screen: Login
+    },
+    Main: {
+      screen: Main
     }
   },
   {

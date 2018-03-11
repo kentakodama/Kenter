@@ -3,6 +3,8 @@ import { StyleSheet, Text, View, AsyncStorage } from 'react-native';
 
 import getUser from '../api_util/api_util'
 import { AppNavigator } from '../navigation/app_navigation'
+import Main from '../components/main'
+
 export default class Splash extends React.Component {
 
   componentDidMount() {
@@ -17,7 +19,7 @@ export default class Splash extends React.Component {
       if (value !== null){
         // We have data!!
         //fetch data from database, then navigate to main
-        // navigate('Main')
+        navigate('Main')
       } else {
         //navigate to login
         console.log('navigate away');
