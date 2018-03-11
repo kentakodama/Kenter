@@ -21,12 +21,13 @@ class Login extends React.Component {
     var db = firebase.database();
 
       let userRef = db.ref(`users/${id}`);
-
+      console.log('user object', user);
       userRef.once('value', (snapshot) => {
           if (snapshot.val()) {
             console.log('user already exists');
             return
           }
+
           let newUser = {
             id,
             name: user.displayName,
@@ -45,7 +46,7 @@ class Login extends React.Component {
     return (
       <View style={styles.container}>
         <LoginButton
-          readPermissions={['public_profile', 'email']}
+          readPermissions={['public_profile', 'email', 'user_birthday']}
           onLoginFinished={
             (error, result) => {
               if (error) {
