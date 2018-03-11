@@ -41,6 +41,7 @@ class Login extends React.Component {
 
 
   render() {
+    const { navigate } = this.props.navigation
     return (
       <View style={styles.container}>
         <LoginButton
@@ -69,7 +70,7 @@ class Login extends React.Component {
               }
             }
           }
-          onLogoutFinished={() => alert("logout.")}/>
+          onLogoutFinished={() => navigate('Splash')}/>
 
       </View>
     );
