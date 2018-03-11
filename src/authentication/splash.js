@@ -1,33 +1,37 @@
 import React from 'react';
 import { StyleSheet, Text, View, AsyncStorage } from 'react-native';
+import {connect} from 'react-redux';
+import { AppNavigator } from '../navigation/app_navigation';
+import { AccessToken } from 'react-native-fbsdk';
+import * as firebase from 'firebase';
+import { receiveUser } from '../actions/user_actions';
 
-import getUser from '../api_util/api_util'
-import { AppNavigator } from '../navigation/app_navigation'
 import Main from '../components/main'
 
-export default class Splash extends React.Component {
+class Splash extends React.Component {
+
+  constructor(props) {
+    super(props)
+  }
 
   componentDidMount() {
     this.fetchId();
   }
 
-  async fetchId() {
-    const { goBack, navigate } = this.props.navigation;
-    try {
-      const value = await AsyncStorage.getItem('@kenterId:key');
-      console.log('value', value);
-      if (value !== null){
-        // We have data!!
-        //fetch data from database, then navigate to main
+  fetchId() {
+    const { navigate } = this.props.navigation;
+    // const getUser = (id) = this.props.getUser
+
+    AccessToken.getCurrentAccessToken().then((token) => {
+      if(token) {
+        firebase.database().ref(`users/${token.userID}`)
+        .on('value', (snapshot) => this.props.receiveUser(snapshot.val()))
         navigate('Main')
       } else {
-        //navigate to login
-        console.log('navigate away');
         navigate('Login')
       }
-    } catch (error) {
-      // Error retrieving data
-    }
+    })
+
   }
 
   render() {
@@ -47,3 +51,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+const mapDispatchToProps = (dispatch) => ({
+  receiveUser: (id) => dispatch(receiveUser(id))
+});
+
+export default connect(null, mapDispatchToProps)(Splash);

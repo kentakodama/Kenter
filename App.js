@@ -14,21 +14,14 @@ firebaseRef();
 export default class App extends React.Component {
 
   render() {
-    // const store = configureStore();
+    const store = configureStore();
     return (
-      <Provider>
+      <Provider store={store}>
         <AppNavigator />
       </Provider>
     )
   }
-  // render() {
-  //   const store = configureStore();
-  //   return (
-  //     <Provider store={store}>
-  //       <AppNavigator />
-  //     </Provider>
-  //   )
-  // }
+
 }
 
 const styles = StyleSheet.create({

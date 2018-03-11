@@ -14,12 +14,11 @@ import AppNavigator from '../navigation/app_navigation'
 class Login extends React.Component {
 
 
-  initUser(user) {
+  initUser(user, id) {
 
     var db = firebase.database();
 
-      let key = user.uid
-      let userRef = db.ref(`users/${key}`);
+      let userRef = db.ref(`users/${id}`);
 
       userRef.once('value', (snapshot) => {
           if (snapshot.val()) {
@@ -27,13 +26,15 @@ class Login extends React.Component {
             return
           }
           let newUser = {
-            id: key,
+            id,
             name: user.displayName,
             photoURL: user.photoURL
           }
           userRef.set(newUser)
-      });
-      this.storeId(key);
+      })
+      // .then(() => this.storeId(key))
+      // .then(() => getUser(key))
+
   }
 
   async storeId(id) {
@@ -63,11 +64,11 @@ class Login extends React.Component {
                       // Create a new Firebase credential with the token
                       const credential = firebase.auth.FacebookAuthProvider.credential(data.accessToken);
                       // Login with the credential
-                      return firebase.auth().signInWithCredential(credential);
-                    })
-                    .then((user) => {
-                      console.log('user object', user);
-                      this.initUser(user)
+                      firebase.auth().signInWithCredential(credential)
+                      .then((user) => {
+                        console.log('user object', user);
+                        this.initUser(user, data.userID)
+                      })
                     })
                     .catch((error) => {
                       const { code, message } = error;

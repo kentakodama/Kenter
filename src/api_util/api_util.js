@@ -1,8 +1,10 @@
 import * as firebase from 'firebase';
 
 export const getUser = (userId) => {
-  let user = firebase.database().ref('/users');
+  console.log('in api util');
+  let user = firebase.database().ref(`/users/${userId}`);
   user.once('value', (snapshot) => {
-      return snapshot
+      return snapshot.val();
+
     });
 }
