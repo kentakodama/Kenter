@@ -3,12 +3,17 @@ import { StyleSheet, Text, View, TouchableOpacity, AsyncStorage } from 'react-na
 import * as firebase from 'firebase';
 import Login from '../authentication/login';
 
-class Main extends React.Component {
+class CompleteProfile extends React.Component {
+
+  constructor(props){
+    super(props)
+    this.state = { introMessage: '', pic1URL: '', pic2URL: '', pic3URL: '' };
+  }
 
   render() {
     return (
       <View style={styles.container}>
-        <Text style={{marginTop: '20%', fontSize: 40 }}>This is the main page</Text>
+        <Text style={{marginTop: '20%', fontSize: 40 }}>This is the profile page</Text>
       </View>
     );
   }
@@ -23,4 +28,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Main
+export default CompleteProfile

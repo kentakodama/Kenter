@@ -2,7 +2,9 @@ import { StackNavigator} from 'react-navigation';
 
 import Login from '../authentication/login';
 import Splash from '../authentication/splash';
-import Main from '../components/main';
+import CompleteProfile from '../components/complete_profile';
+import SwipePage from '../components/swipe_page';
+import Main from '../components/main'
 
 const AppNavigator = StackNavigator(
 
@@ -12,6 +14,12 @@ const AppNavigator = StackNavigator(
     },
     Login: {
       screen: Login
+    },
+    CompleteProfile: {
+      screen: CompleteProfile
+    },
+    SwipePage: {
+      screen: SwipePage
     },
     Main: {
       screen: Main

@@ -1,14 +1,13 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, AsyncStorage } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import * as firebase from 'firebase';
-import Login from '../authentication/login';
 
-class Main extends React.Component {
+class SwipePage extends React.Component {
 
   render() {
     return (
       <View style={styles.container}>
-        <Text style={{marginTop: '20%', fontSize: 40 }}>This is the main page</Text>
+        <Text style={{marginTop: '20%', fontSize: 40 }}>This is the swiping page</Text>
       </View>
     );
   }
@@ -23,4 +22,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Main
+export default SwipePage

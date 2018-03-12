@@ -36,7 +36,7 @@ class Login extends React.Component {
           userRef.set(newUser)
       })
       this.props.receiveUser(id)
-      navigate('Main')
+      navigate('CompleteProfile')
 
   }
 
