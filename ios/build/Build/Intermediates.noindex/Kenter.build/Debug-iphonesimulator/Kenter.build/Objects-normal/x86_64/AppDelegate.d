@@ -9,4 +9,43 @@ dependencies: \
   /Users/kentakodama/Desktop/app_academy/firebase/Kenter/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTDefines.h \
   /Users/kentakodama/Desktop/app_academy/firebase/Kenter/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridgeModule.h \
   /Users/kentakodama/Desktop/app_academy/firebase/Kenter/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTFrameUpdate.h \
-  /Users/kentakodama/Desktop/app_academy/firebase/Kenter/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTInvalidating.h
+  /Users/kentakodama/Desktop/app_academy/firebase/Kenter/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTInvalidating.h \
+  /Users/kentakodama/Desktop/app_academy/firebase/Kenter/ios/FBSDKCoreKit.framework/Modules/module.modulemap \
+  /Users/kentakodama/Desktop/app_academy/firebase/Kenter/ios/Bolts.framework/Modules/module.modulemap \
+  /Users/kentakodama/Desktop/app_academy/firebase/Kenter/ios/Bolts.framework/Headers/BFWebViewAppLinkResolver.h \
+  /Users/kentakodama/Desktop/app_academy/firebase/Kenter/ios/Bolts.framework/Headers/BFURL.h \
+  /Users/kentakodama/Desktop/app_academy/firebase/Kenter/ios/Bolts.framework/Headers/BFMeasurementEvent.h \
+  /Users/kentakodama/Desktop/app_academy/firebase/Kenter/ios/Bolts.framework/Headers/BFAppLinkTarget.h \
+  /Users/kentakodama/Desktop/app_academy/firebase/Kenter/ios/Bolts.framework/Headers/BFAppLinkReturnToRefererView.h \
+  /Users/kentakodama/Desktop/app_academy/firebase/Kenter/ios/Bolts.framework/Headers/BFAppLinkReturnToRefererController.h \
+  /Users/kentakodama/Desktop/app_academy/firebase/Kenter/ios/Bolts.framework/Headers/BFAppLinkResolving.h \
+  /Users/kentakodama/Desktop/app_academy/firebase/Kenter/ios/Bolts.framework/Headers/BFAppLinkNavigation.h \
+  /Users/kentakodama/Desktop/app_academy/firebase/Kenter/ios/Bolts.framework/Headers/BFAppLink.h \
+  /Users/kentakodama/Desktop/app_academy/firebase/Kenter/ios/Bolts.framework/Headers/BFTaskCompletionSource.h \
+  /Users/kentakodama/Desktop/app_academy/firebase/Kenter/ios/Bolts.framework/Headers/BFTask+Exceptions.h \
+  /Users/kentakodama/Desktop/app_academy/firebase/Kenter/ios/Bolts.framework/Headers/BFTask.h \
+  /Users/kentakodama/Desktop/app_academy/firebase/Kenter/ios/Bolts.framework/Headers/BFExecutor.h \
+  /Users/kentakodama/Desktop/app_academy/firebase/Kenter/ios/Bolts.framework/Headers/BFCancellationTokenSource.h \
+  /Users/kentakodama/Desktop/app_academy/firebase/Kenter/ios/Bolts.framework/Headers/BFCancellationTokenRegistration.h \
+  /Users/kentakodama/Desktop/app_academy/firebase/Kenter/ios/Bolts.framework/Headers/BFCancellationToken.h \
+  /Users/kentakodama/Desktop/app_academy/firebase/Kenter/ios/Bolts.framework/Headers/Bolts.h \
+  /Users/kentakodama/Desktop/app_academy/firebase/Kenter/ios/FBSDKCoreKit.framework/Headers/FBSDKProfilePictureView.h \
+  /Users/kentakodama/Desktop/app_academy/firebase/Kenter/ios/FBSDKCoreKit.framework/Headers/FBSDKProfile.h \
+  /Users/kentakodama/Desktop/app_academy/firebase/Kenter/ios/FBSDKCoreKit.framework/Headers/FBSDKMutableCopying.h \
+  /Users/kentakodama/Desktop/app_academy/firebase/Kenter/ios/FBSDKCoreKit.framework/Headers/FBSDKGraphErrorRecoveryProcessor.h \
+  /Users/kentakodama/Desktop/app_academy/firebase/Kenter/ios/FBSDKCoreKit.framework/Headers/FBSDKAppLinkUtility.h \
+  /Users/kentakodama/Desktop/app_academy/firebase/Kenter/ios/FBSDKCoreKit.framework/Headers/FBSDKAppLinkResolver.h \
+  /Users/kentakodama/Desktop/app_academy/firebase/Kenter/ios/FBSDKCoreKit.framework/Headers/FBSDKUtility.h \
+  /Users/kentakodama/Desktop/app_academy/firebase/Kenter/ios/FBSDKCoreKit.framework/Headers/FBSDKTestUsersManager.h \
+  /Users/kentakodama/Desktop/app_academy/firebase/Kenter/ios/FBSDKCoreKit.framework/Headers/FBSDKSettings.h \
+  /Users/kentakodama/Desktop/app_academy/firebase/Kenter/ios/FBSDKCoreKit.framework/Headers/FBSDKGraphRequestDataAttachment.h \
+  /Users/kentakodama/Desktop/app_academy/firebase/Kenter/ios/FBSDKCoreKit.framework/Headers/FBSDKGraphRequest.h \
+  /Users/kentakodama/Desktop/app_academy/firebase/Kenter/ios/FBSDKCoreKit.framework/Headers/FBSDKConstants.h \
+  /Users/kentakodama/Desktop/app_academy/firebase/Kenter/ios/FBSDKCoreKit.framework/Headers/FBSDKButton.h \
+  /Users/kentakodama/Desktop/app_academy/firebase/Kenter/ios/FBSDKCoreKit.framework/Headers/FBSDKApplicationDelegate.h \
+  /Users/kentakodama/Desktop/app_academy/firebase/Kenter/ios/FBSDKCoreKit.framework/Headers/FBSDKAppEvents.h \
+  /Users/kentakodama/Desktop/app_academy/firebase/Kenter/ios/FBSDKCoreKit.framework/Headers/FBSDKMacros.h \
+  /Users/kentakodama/Desktop/app_academy/firebase/Kenter/ios/FBSDKCoreKit.framework/Headers/FBSDKGraphRequestConnection.h \
+  /Users/kentakodama/Desktop/app_academy/firebase/Kenter/ios/FBSDKCoreKit.framework/Headers/FBSDKCopying.h \
+  /Users/kentakodama/Desktop/app_academy/firebase/Kenter/ios/FBSDKCoreKit.framework/Headers/FBSDKAccessToken.h \
+  /Users/kentakodama/Desktop/app_academy/firebase/Kenter/ios/FBSDKCoreKit.framework/Headers/FBSDKCoreKit.h
