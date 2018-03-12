@@ -3,7 +3,7 @@ import { StackNavigator} from 'react-navigation';
 import Login from '../authentication/login';
 import Splash from '../authentication/splash';
 import CompleteProfile from '../components/complete_profile';
-import SwipePage from '../components/swipe_page';
+import SwipePage from '../components/deck/swipe_page';
 import Main from '../components/main'
 
 const AppNavigator = StackNavigator(
