@@ -2,6 +2,8 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, AsyncStorage } from 'react-native';
 import * as firebase from 'firebase';
 
+import SelectImage from './select_image'
+
 class Profile extends React.Component {
 
   constructor(props){
@@ -13,6 +15,7 @@ class Profile extends React.Component {
     return (
       <View style={styles.container}>
         <Text style={{marginTop: '20%', fontSize: 40 }}>This is the profile page</Text>
+        <SelectImage/>
       </View>
     );
   }
