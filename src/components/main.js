@@ -35,7 +35,7 @@ class Main extends React.Component {
           renderIcon={() => <Icon name="user" size={22} color="#666"/>}
           renderSelectedIcon={() => <Icon name="user" size={22} color="#3496f0"/>}
           onPress={() => this.setState({selectedTab: 'profile'})}>
-          <Profile/>
+          <Profile navigation={this.props.navigation}/>
         </TabNavigator.Item>
       </TabNavigator>
     );

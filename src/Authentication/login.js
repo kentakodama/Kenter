@@ -28,15 +28,16 @@ class Login extends React.Component {
             return
           }
 
-          let newUser = {
+          const newUser = {
             id,
             name: user.displayName,
-            photoURL: user.photoURL
+            photoURL: user.photoURL,
+            about: 'Tell us about yourself'
           }
           userRef.set(newUser)
+          this.props.receiveUser(newUser)
+          navigate('Main')
       })
-      this.props.receiveUser(id)
-      navigate('CompleteProfile')
 
   }
 

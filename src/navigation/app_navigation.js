@@ -5,12 +5,14 @@ import Splash from '../authentication/splash';
 import CompleteProfile from '../components/complete_profile';
 import SwipePage from '../components/deck/swipe_page';
 import Main from '../components/main'
+import EditAbout from '../components/profile/edit_about'
+import AboutMe from '../components/profile/about_me'
 
 const AppNavigator = StackNavigator(
 
   {
     Index: {
-      screen: Main
+      screen: Splash
     },
     Login: {
       screen: Login
@@ -23,6 +25,12 @@ const AppNavigator = StackNavigator(
     },
     Main: {
       screen: Main
+    },
+    EditAbout: {
+      screen: EditAbout
+    },
+    AboutMe: {
+      screen: AboutMe
     }
   },
   {
