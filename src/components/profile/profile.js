@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, AsyncStorage } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import * as firebase from 'firebase';
 
 import SelectImage from './select_image'
@@ -14,8 +14,11 @@ class Profile extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={{marginTop: '20%', fontSize: 40 }}>This is the profile page</Text>
-        <SelectImage/>
+        <View style={{flex: 1, width: '100%', backgroundColor: 'yellow'}}/>
+        <View style={{flex: 1, width: '100%', backgroundColor: 'gray'}}>
+          <Text>About me</Text>
+        </View>
+        <View style={{flex: 1, width: '100%', backgroundColor: 'red'}}/>
       </View>
     );
   }
@@ -24,10 +27,11 @@ class Profile extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'column',
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-  },
+  }
 });
 
 export default Profile

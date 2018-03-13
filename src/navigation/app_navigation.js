@@ -10,7 +10,7 @@ const AppNavigator = StackNavigator(
 
   {
     Index: {
-      screen: Splash
+      screen: Main
     },
     Login: {
       screen: Login

@@ -2,7 +2,7 @@
 import React from 'react';
 import ImagePicker from 'react-native-image-picker';
 import RNFetchBlob from 'react-native-fetch-blob'
-import { Image, Platform } from 'react-native';
+import { Image, Text, Button, View, Platform, FlatList } from 'react-native';
 import * as firebase from 'firebase';
 
 
@@ -17,13 +17,14 @@ class SelectImage extends React.Component {
 
    constructor(props){
      super(props)
-     this.state = {avatarSource: ''}
+     this.state = {photos:[]}
      this.uploadImage = this.uploadImage.bind(this)
    }
 
+
    // More info on all the options is below in the README...just some common use cases shown here
    pickImage() {
-    this.setState({ uploadURL: '' })
+    this.setState({ uploadURL: 'http://www.tiptoncommunications.com/components/com_easyblog/themes/wireframe/images/placeholder-image.png'})
 
     ImagePicker.launchImageLibrary({}, response  => {
       console.log(response);
@@ -54,6 +55,10 @@ class SelectImage extends React.Component {
           return imageRef.getDownloadURL()
         })
         .then((url) => {
+          console.log(url);
+          const photoURLs = this.state.photos.slice();
+          photoURLs.push(url)
+          this.setState({photos: photoURLs})
           resolve(url)
         })
         .catch((error) => {
@@ -62,16 +67,43 @@ class SelectImage extends React.Component {
     })
   }
 
+
+  // let rootRef = firebase.storage().ref();
+  //           let fileRef = rootRef.child(`images/${fileName}`);
+  //           fileRef.put(file)
+  //               .then(() => {
+  //                   console.log("file uploaded with success congrats");
+  //               })
+  //               .catch(err => console.log(err));
+  //           fileRef.getDownloadURL()
+  //               .then((url) => {
+  //                   //Getting the download url.
+  //                   console.log(`Download Url : ${url}`);
+  //               })
+  //               .catch(err => console.log(err));
+  //       }
+
    componentDidMount(){
      this.pickImage();
    }
 
    render(){
+     let images = this.state.photos;
      return (
-       <Image source={this.state.avatarSource} />
+       <View style={{ backgroundColor: 'red', width: '100%', height: '100%'}}>
+       <Button title="Upload photo" style={{width: 100, height: 100}} onPress={() => this.pickImage()} />
+       <Text>hello</Text>
+        <FlatList
+          data={images}
+          showsHorizontalScrollIndicator={false}
+          renderItem={({item}) => <Image source={{uri: item}}/>}
+          keyExtractor={(item, index) => index}
+        />
+      </View>
      )
    }
 
 }
+// <Image style={{width: 100, height: 100}} source={{uri: this.state.photos}} />
 
 export default SelectImage

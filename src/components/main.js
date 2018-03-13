@@ -12,7 +12,7 @@ class Main extends React.Component {
 
   constructor(props){
     super(props)
-    this.state = {selectedTab: 'Messenger'}
+    this.state = {selectedTab: 'profile'}
   }
 
   render() {
