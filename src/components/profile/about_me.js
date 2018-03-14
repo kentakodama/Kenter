@@ -8,13 +8,10 @@ class AboutMe extends React.Component {
 
   constructor(props){
     super(props)
-    this.state = { info: '' };
-    console.log(this.props);
+    // this.state = { info: '' };
+    console.log('about me props', this.props);
   }
 
-  componentWillMount() {
-    // this.setState({info: this.props.about})
-  }
 
   editAbout(){
     console.log(this.props);
@@ -23,6 +20,7 @@ class AboutMe extends React.Component {
   }
 
   render() {
+    console.log('about_me component', this.props.about);
     return (
       <View style={styles.container}>
           <TouchableHighlight onPress={()=> this.editAbout()}

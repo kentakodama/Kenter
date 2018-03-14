@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, AsyncStorage } from 'react-native';
 import {connect} from 'react-redux';
 import { AppNavigator } from '../navigation/app_navigation';
 import { AccessToken } from 'react-native-fbsdk';
-import * as firebase from 'firebase';
+import firebase from '../firebase';
 import { receiveUser } from '../actions/user_actions';
 
 import Profile from '../components/complete_profile'
@@ -25,8 +25,8 @@ class Splash extends React.Component {
     //as long as phone has facebook, this will work
     AccessToken.getCurrentAccessToken().then((token) => {
       if(token) {
-        firebase.database().ref(`users/${token.userID}`)
-        .on('value', (snapshot) => this.props.receiveUser(snapshot.val()))
+        // firebase.database().ref(`users/${token.userID}`)
+        // .on('value', (snapshot) => this.props.receiveUser(snapshot.val()))
         navigate('Main')
       } else {
         navigate('Login')

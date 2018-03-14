@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, AsyncStorage } from 'react-native';
-import * as firebase from 'firebase';
+import firebase from '../firebase';
 const FBSDK = require('react-native-fbsdk');
 const {
   LoginButton,
@@ -9,35 +9,24 @@ const {
 } = FBSDK;
 import { connect } from 'react-redux';
 
-import getUser from '../api_util/api_util'
+import * as APIUtil from '../api_util/api_util'
 import AppNavigator from '../navigation/app_navigation'
 import { receiveUser } from '../actions/user_actions';
 
 class Login extends React.Component {
 
 
-  initUser(user, id) {
+  initUser(user) {
     const { navigate } = this.props.navigation;
-    var db = firebase.database();
-
-      let userRef = db.ref(`users/${id}`);
-      console.log('user object', user);
-      userRef.once('value', (snapshot) => {
-          if (snapshot.val()) {
-            console.log('user already exists');
-            return
-          }
-
-          const newUser = {
-            id,
-            name: user.displayName,
-            photoURL: user.photoURL,
-            about: 'Tell us about yourself'
-          }
-          userRef.set(newUser)
-          this.props.receiveUser(newUser)
-          navigate('Main')
-      })
+    const newUser = {
+      id: user.uid,
+      name: user.displayName,
+      photoURL: user.photoURL,
+      about: 'Tell us about yourself'
+    }
+    APIUtil.postNewUser(newUser) // to database
+    this.props.receiveUser(newUser) // to state
+    navigate('Main')
 
   }
 
@@ -62,7 +51,7 @@ class Login extends React.Component {
                       // Login with the credential
                       firebase.auth().signInWithCredential(credential)
                       .then((user) => {
-                        this.initUser(user, data.userID)
+                        this.initUser(user)
                       })
                     })
                     .catch((error) => {
@@ -89,7 +78,8 @@ const styles = StyleSheet.create({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  receiveUser: (id) => dispatch(receiveUser(id))
+  receiveUser: (id) => dispatch(receiveUser(id)),
+  updateUserInfo: (user) => dispatch(updateUserInfo(user))
 });
 
 export default connect(null, mapDispatchToProps)(Login);

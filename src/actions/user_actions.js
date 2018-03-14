@@ -7,3 +7,11 @@ export const receiveUser = (user) => ({
   type: RECEIVE_USER,
   user
 });
+
+export const getUser = (id) => dispatch => (
+  APIUtil.getUser(id).then(resp => dispatch(receiveUser(resp)))
+)
+
+export const updateUserAboutMe = (user) => dispatch => (
+  APIUtil.postUserAboutMe(user).then(resp => dispatch(receiveUser(resp)))
+)

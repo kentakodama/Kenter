@@ -1,23 +1,26 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import configureStore from './src/store/store';
+import { Provider, connect } from 'react-redux';
+import * as Store from './src/store/store';
+import { PersistGate } from 'redux-persist/integration/react'
 
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import firebaseRef from './src/firebase.js'
-import * as firebase from 'firebase';
+import firebase from './src/firebase'
+// import * as firebase from 'firebase';
 import AppNavigator from './src/navigation/app_navigation'
 import { StackNavigator} from 'react-navigation';
 
 
-firebaseRef();
 
 export default class App extends React.Component {
 
   render() {
-    const store = configureStore();
+    const { persistor, store } = Store
+
     return (
       <Provider store={store}>
-        <AppNavigator />
+        <PersistGate loading={null} persistor={persistor}>
+          <AppNavigator />
+        </PersistGate>
       </Provider>
     )
   }
@@ -31,4 +34,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+});
+
+const mapStateToProps = (state) => ({
+  about: state.user
 });
