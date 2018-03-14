@@ -25,8 +25,6 @@ class Splash extends React.Component {
     //as long as phone has facebook, this will work
     AccessToken.getCurrentAccessToken().then((token) => {
       if(token) {
-        // firebase.database().ref(`users/${token.userID}`)
-        // .on('value', (snapshot) => this.props.receiveUser(snapshot.val()))
         navigate('Main')
       } else {
         navigate('Login')

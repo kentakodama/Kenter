@@ -1,6 +1,6 @@
 import { RECEIVE_USER } from '../actions/user_actions.js';
 
-// import merge from 'lodash/merge';
+
 
 const defaultState = {};
 
@@ -11,9 +11,6 @@ const UserReducer = (state = defaultState, action) => {
     console.log('reducer, state', action.user);
       return action.user;
     case 'persist/REHYDRATE':
-      console.log('state', state);
-      // console.log('persistedState', persistedState);
-      console.log(action.payload);
       if(!action.payload) {
         return {}
       } else {
