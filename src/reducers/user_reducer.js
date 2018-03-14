@@ -8,7 +8,6 @@ const UserReducer = (state = defaultState, action) => {
   Object.freeze(state);
   switch (action.type) {
     case RECEIVE_USER:
-    console.log('reducer, state', action.user);
       return action.user;
     case 'persist/REHYDRATE':
       if(!action.payload) {

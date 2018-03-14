@@ -8,13 +8,26 @@ const {
   AccessToken
 } = FBSDK;
 import { connect } from 'react-redux';
-
-import * as APIUtil from '../api_util/api_util'
 import AppNavigator from '../navigation/app_navigation'
-import { receiveUser } from '../actions/user_actions';
+import { receiveUser, createNewUser } from '../actions/user_actions';
 
 class Login extends React.Component {
 
+
+  handleUser(user) {
+
+    const allUsersRef = firebase.database().ref('users');
+
+    allUsersRef.child(user.uid).once('value', (snapshot) => {
+      const potentialUser = snapshot.val()
+      if (potentialUser !== null) {
+        this.returningUser(potentialUser)
+      } else {
+        this.initUser(user)
+      }
+    });
+
+  }
 
   initUser(user) {
     const { navigate } = this.props.navigation;
@@ -24,10 +37,17 @@ class Login extends React.Component {
       photoURL: user.photoURL,
       about: 'Tell us about yourself'
     }
-    APIUtil.postNewUser(newUser) // to database
+    this.props.createNewUser(newUser) // to database
     this.props.receiveUser(newUser) // to state
     navigate('Main')
 
+  }
+
+  returningUser(oldUser) {
+    const { navigate } = this.props.navigation;
+    console.log('getting old user', oldUser);
+    this.props.receiveUser(oldUser)
+    navigate('Main')
   }
 
 
@@ -51,7 +71,7 @@ class Login extends React.Component {
                       // Login with the credential
                       firebase.auth().signInWithCredential(credential)
                       .then((user) => {
-                        this.initUser(user)
+                        this.handleUser(user)
                       })
                     })
                     .catch((error) => {
@@ -79,6 +99,7 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = (dispatch) => ({
   receiveUser: (id) => dispatch(receiveUser(id)),
+  createNewUser: (id) => dispatch(createNewUser(id)),
   updateUserInfo: (user) => dispatch(updateUserInfo(user))
 });
 
