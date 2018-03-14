@@ -8,10 +8,11 @@ export const receiveUser = (user) => ({
   user
 });
 
-export const getUser = (id) => dispatch => (
-  APIUtil.getUser(id).then(resp => dispatch(receiveUser(resp)))
-)
+
+// export const getUser = (id) => dispatch => (
+//   APIUtil.getUser(id).then(resp => dispatch(receiveUser(resp)))
+// )
 
 export const updateUserAboutMe = (user) => dispatch => (
-  APIUtil.postUserAboutMe(user).then(resp => dispatch(receiveUser(resp)))
+  APIUtil.postUserAboutMe(user)
 )

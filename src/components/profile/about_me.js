@@ -8,19 +8,15 @@ class AboutMe extends React.Component {
 
   constructor(props){
     super(props)
-    // this.state = { info: '' };
-    console.log('about me props', this.props);
   }
 
 
   editAbout(){
-    console.log(this.props);
     const { navigate } = this.props.navigation;
     navigate('EditAbout')
   }
 
   render() {
-    console.log('about_me component', this.props.about);
     return (
       <View style={styles.container}>
           <TouchableHighlight onPress={()=> this.editAbout()}

@@ -2,23 +2,20 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, Button, Text, View, TextInput } from 'react-native';
 import * as firebase from 'firebase';
-import * as APIUtil from '../../api_util/api_util'
-import { receiveUser } from '../../actions/user_actions'
+import { receiveUser, updateUserAboutMe } from '../../actions/user_actions'
 class EditAbout extends React.Component {
 
 
   constructor(props){
     super(props)
-    this.state = Object.assign({}, this.props.user)
-    console.log('props', this.props.user);
-    console.log('state', this.state);
+    this.state = Object.assign({}, this.props.user) // copy entire state to local
   }
 
   handleAboutUpdate(){
     const { navigate } = this.props.navigation;
     const user = this.state;
     console.log('this.props.receiveUser', this.props.receiveUser);
-    APIUtil.postUserAboutMe(user); // to db
+    this.props.updateUserAboutMe(user); // to db
     this.props.receiveUser(user); // to state
     navigate('Main')
 
@@ -53,7 +50,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  receiveUser: (user) => dispatch(receiveUser(user))
+  receiveUser: (user) => dispatch(receiveUser(user)),
+  updateUserAboutMe: (user) => dispatch(updateUserAboutMe(user)) 
 });
 
 
