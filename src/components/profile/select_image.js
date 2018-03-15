@@ -3,7 +3,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import ImagePicker from 'react-native-image-picker';
 import RNFetchBlob from 'react-native-fetch-blob'
-import { Image, Text, Button, View, Platform, FlatList, TouchableOpacity } from 'react-native';
+import { Image, Text, Button, View, Platform, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import * as firebase from 'firebase';
 import { addPhoto } from '../../actions/album_actions'
 
@@ -37,8 +37,10 @@ class SelectImage extends React.Component {
     this.setState({ uploadURL: 'http://www.tiptoncommunications.com/components/com_easyblog/themes/wireframe/images/placeholder-image.png'})
 
     ImagePicker.launchImageLibrary({}, photo  => {
-      console.log('photo', photo)
-
+      if(photo.didCancel) {
+        console.log('canceling save');
+        return
+      }
       this.setState({ photo: photo.data })
 
       this.storePhotoLocally(photo)
@@ -90,43 +92,36 @@ class SelectImage extends React.Component {
   }
 
 
-  // let rootRef = firebase.storage().ref();
-  //           let fileRef = rootRef.child(`images/${fileName}`);
-  //           fileRef.put(file)
-  //               .then(() => {
-  //                   console.log("file uploaded with success congrats");
-  //               })
-  //               .catch(err => console.log(err));
-  //           fileRef.getDownloadURL()
-  //               .then((url) => {
-  //                   //Getting the download url.
-  //                   console.log(`Download Url : ${url}`);
-  //               })
-  //               .catch(err => console.log(err));
-  //       }
-   //
-   // componentDidMount(){
-   //   this.pickImage();
-   // }
 
    render(){
      let album = this.props.album;
-     let displayPhoto = album[album.length -1]
+
 
      const { navigate, goBack } = this.props.navigation
      return (
-       <View style={{ backgroundColor: 'red', width: '100%', height: '100%'}}>
+       <View style={styles.container}>
          <Button title="Upload photo" style={{width: 100, height: 100}} onPress={() => this.pickImage()} />
          <Text>hello</Text>
          <Button title='return to Profile' style={{width: 100, height: 100}} onPress={() => goBack()}/>
-         <Image style={{width: 100, height: 100}} source={{uri: `data:image/gif;base64,${displayPhoto.data}`}} />
+         <FlatList // !!!! FLATLIST, item in renderItem must be exactly item, cant choose own var
+          data={album}
+          showsHorizontalScrollIndicator={false}
+          renderItem={({item}) => console.log(item)}
+          keyExtractor={(item, index) => index}
+        />
       </View>
      )
    }
 
 }
-// <Image source={{uri: `data:image/gif;base64,${encodedData}`}} />
 
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: 'red',
+    width: '100%',
+    height: '100%'
+  }
+});
 
 const mapStateToProps = (state) => ({
   album: state.album
