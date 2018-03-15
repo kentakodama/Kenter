@@ -7,6 +7,7 @@ import SwipePage from '../components/deck/swipe_page';
 import Main from '../components/main'
 import EditAbout from '../components/profile/edit_about'
 import AboutMe from '../components/profile/about_me'
+import SelectImage from '../components/profile/select_image'
 
 const AppNavigator = StackNavigator(
 
@@ -31,6 +32,9 @@ const AppNavigator = StackNavigator(
     },
     AboutMe: {
       screen: AboutMe
+    },
+    SelectImage: {
+      screen: SelectImage
     }
   },
   {
