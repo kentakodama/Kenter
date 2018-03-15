@@ -22,19 +22,14 @@ class SelectImage extends React.Component {
      this.uploadImage = this.uploadImage.bind(this)
 
    }
-   //
-   // navigate(page) {
-   //   const { navigate } = this.props.navigation
-   //   navigate(page)
-   // }
 
    // More info on all the options is below in the README...just some common use cases shown here
    pickImage() {
     this.setState({ uploadURL: 'http://www.tiptoncommunications.com/components/com_easyblog/themes/wireframe/images/placeholder-image.png'})
 
     ImagePicker.launchImageLibrary({}, response  => {
-      console.log(response)
-      this.setState({ photo: response })
+      console.log('response', response)
+      this.setState({ photo: response.data })
       this.uploadImage(response.uri)
         .then(url => console.log(url))
         .catch(error => console.log(error))
@@ -110,12 +105,12 @@ class SelectImage extends React.Component {
          <Button title="Upload photo" style={{width: 100, height: 100}} onPress={() => this.pickImage()} />
          <Text>hello</Text>
          <Button title='return to Profile' style={{width: 100, height: 100}} onPress={() => goBack()}/>
-         <Image style={{width: 100, height: 100}} source={{uri: this.state.photo}} />
+         <Image style={{width: 100, height: 100}} source={{uri: `data:image/gif;base64,${this.state.photo}`}} />
       </View>
      )
    }
 
 }
-
+// <Image source={{uri: `data:image/gif;base64,${encodedData}`}} />
 
 export default SelectImage
