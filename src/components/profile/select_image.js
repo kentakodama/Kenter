@@ -106,7 +106,7 @@ class SelectImage extends React.Component {
          <FlatList // !!!! FLATLIST, item in renderItem must be exactly item, cant choose own var
           data={album}
           showsHorizontalScrollIndicator={false}
-          renderItem={({item}) => console.log(item)}
+          renderItem={({item}) => <Image style={{flex: 1, width: 400, height: 400}}  source={{uri: `data:image/gif;base64,${item.data}`}} />}
           keyExtractor={(item, index) => index}
         />
       </View>
