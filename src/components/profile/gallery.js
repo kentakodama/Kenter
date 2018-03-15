@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Swiper from 'react-native-swiper';
-import { Image, Text, Button, View, Platform, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import { Image, View, StyleSheet} from 'react-native';
 
 class Gallery extends React.Component {
 
@@ -12,17 +12,15 @@ class Gallery extends React.Component {
 
    render(){
      const album = this.props.album;
-
+     //cant put styles in swiper only nested children
      return (
 
          <Swiper horizontal={true}>
-                   {album.map((item, key) => {
-                      return (
-
-                          <Image style={{flex: 1, width: 400, height: 400}}  source={{uri: `data:image/gif;base64,${item.data}`}} />
-
-                      )
-                    })}
+             {album.map((item, key) => {
+                return (
+                    <Image key={key} style={styles.images}source={{uri: `data:image/gif;base64,${item.data}`}} />
+                )
+              })}
          </Swiper>
 
      )
@@ -31,7 +29,8 @@ class Gallery extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  images: {
+    flex: 1,
     backgroundColor: 'red',
     width: '100%',
     height: '100%'

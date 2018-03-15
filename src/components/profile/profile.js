@@ -17,12 +17,13 @@ class Profile extends React.Component {
     const { navigate } = this.props.navigation
     return (
       <View style={styles.container}>
+        <Text style={{flex: 1}}>LOGO</Text>
         <Gallery style={{flex: 1, width: '100%'}}/>
-        <AboutMe navigation={this.props.navigation} style={{flex: 1, width: '100%'}}/>
         <TouchableOpacity style={{flex: 1, width: '100%', backgroundColor: 'blue'}}
-                          onPress={()=> navigate('SelectImage')}>
+            onPress={()=> navigate('SelectImage')}>
             <Text>Upload a photo</Text>
         </TouchableOpacity>
+        <AboutMe navigation={this.props.navigation} style={{flex: 1, width: '100%'}}/>
       </View>
     );
   }
