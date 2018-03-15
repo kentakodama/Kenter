@@ -55,11 +55,13 @@ class SelectImage extends React.Component {
     //just the location on local device
     const uri = photo.uri
     const storage = firebase.storage()
-    
+
     return new Promise((resolve, reject) => {
       const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri
 
-      const sessionId = new Date().getTime()
+      // const currentUser = firebase.auth().currentUser
+      console.log('currentUser', currentUser);
+      const storageId = photo.id
       let uploadBlob = null
 
       // creating reference here

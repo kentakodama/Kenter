@@ -19,18 +19,52 @@ class Splash extends React.Component {
     this.fetchId();
   }
 
+  returningUser(oldUser) {
+    const user = {
+      id: oldUser.id,
+      name: oldUser.name,
+      photoURL: oldUser.photoURL,
+      about: oldUser.about
+    }
+    console.log('user', user);
+    const { navigate } = this.props.navigation;
+    this.props.receiveUser(user)
+    navigate('Main')
+  }
+
+  handleUser(user) {
+    console.log('auth user', user);
+    const allUsersRef = firebase.database().ref('users');
+
+    allUsersRef.child(user.uid).once('value', (snapshot) => {
+      const potentialUser = snapshot.val()
+      console.log('potentialUser', potentialUser);
+      this.returningUser(potentialUser)
+
+    });
+
+  }
+
+
   fetchId() {
     const { navigate } = this.props.navigation;
     //the id is the facebook id, instead of using AsyncStorage facebook id is already stored in phone
     //as long as phone has facebook, this will work
-    AccessToken.getCurrentAccessToken().then((token) => {
-      if(token) {
-        navigate('Main')
-      } else {
+    AccessToken.getCurrentAccessToken().then((data) => {
+      if(!data) {
         navigate('Login')
+      } else {
+        // Create a new Firebase credential with the token
+        const credential = firebase.auth.FacebookAuthProvider.credential(data.accessToken);
+        // Login with the credential
+        firebase.auth().signInWithCredential(credential)
+        .then((user) => {
+
+          this.handleUser(user)
+        })
       }
     })
-
+    // })
   }
 
   render() {

@@ -19,6 +19,7 @@ class Login extends React.Component {
     const allUsersRef = firebase.database().ref('users');
 
     allUsersRef.child(user.uid).once('value', (snapshot) => {
+      console.log('retrieving from db', snapshot);
       const potentialUser = snapshot.val()
       if (potentialUser !== null) {
         this.returningUser(potentialUser)
@@ -27,6 +28,19 @@ class Login extends React.Component {
       }
     });
 
+  }
+
+  returningUser(oldUser) {
+    const user = {
+      id: oldUser.id,
+      name: oldUser.name,
+      photoURL: oldUser.photoURL,
+      about: oldUser.about
+    }
+    console.log('user', user);
+    const { navigate } = this.props.navigation;
+    this.props.receiveUser(user)
+    navigate('Main')
   }
 
   initUser(user) {
@@ -41,18 +55,6 @@ class Login extends React.Component {
     this.props.receiveUser(newUser) // to state
     navigate('Main')
 
-  }
-
-  returningUser(oldUser) {
-    const user = {
-      id: oldUser.id,
-      name: oldUser.name,
-      photoURL: oldUser.photoURL,
-      about: oldUser.about
-    }
-    const { navigate } = this.props.navigation;
-    this.props.receiveUser(user)
-    navigate('Main')
   }
 
 
@@ -76,6 +78,7 @@ class Login extends React.Component {
                       // Login with the credential
                       firebase.auth().signInWithCredential(credential)
                       .then((user) => {
+                        console.log('auth user', user);
                         this.handleUser(user)
                       })
                     })
