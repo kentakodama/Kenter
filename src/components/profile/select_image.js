@@ -1,10 +1,11 @@
 
 import React from 'react';
+import {connect} from 'react-redux';
 import ImagePicker from 'react-native-image-picker';
 import RNFetchBlob from 'react-native-fetch-blob'
 import { Image, Text, Button, View, Platform, FlatList, TouchableOpacity } from 'react-native';
 import * as firebase from 'firebase';
-
+import { addPhoto } from '../../actions/album_actions'
 
 const Blob = RNFetchBlob.polyfill.Blob
 const fs = RNFetchBlob.fs
@@ -23,14 +24,26 @@ class SelectImage extends React.Component {
 
    }
 
+   storePhotoLocally(photo) {
+     console.log('photo data herererere', photo);
+     let photoObject = Object.assign({}, photo)
+     photoObject['id'] = `${photo.timestamp}${photo.fileName}`
+
+     this.props.addPhoto(photoObject)
+   }
+
    // More info on all the options is below in the README...just some common use cases shown here
    pickImage() {
     this.setState({ uploadURL: 'http://www.tiptoncommunications.com/components/com_easyblog/themes/wireframe/images/placeholder-image.png'})
 
-    ImagePicker.launchImageLibrary({}, response  => {
-      console.log('response', response)
-      this.setState({ photo: response.data })
-      this.uploadImage(response.uri)
+    ImagePicker.launchImageLibrary({}, photo  => {
+      console.log('photo', photo)
+
+      this.setState({ photo: photo.data })
+
+      this.storePhotoLocally(photo)
+
+      this.uploadImage(photo.uri)
         .then(url => console.log(url))
         .catch(error => console.log(error))
     })
@@ -97,7 +110,8 @@ class SelectImage extends React.Component {
    // }
 
    render(){
-     let images = this.state.photos;
+     let album = this.props.album;
+     let displayPhoto = album[album.length -1]
 
      const { navigate, goBack } = this.props.navigation
      return (
@@ -105,7 +119,7 @@ class SelectImage extends React.Component {
          <Button title="Upload photo" style={{width: 100, height: 100}} onPress={() => this.pickImage()} />
          <Text>hello</Text>
          <Button title='return to Profile' style={{width: 100, height: 100}} onPress={() => goBack()}/>
-         <Image style={{width: 100, height: 100}} source={{uri: `data:image/gif;base64,${this.state.photo}`}} />
+         <Image style={{width: 100, height: 100}} source={{uri: `data:image/gif;base64,${displayPhoto.data}`}} />
       </View>
      )
    }
@@ -113,4 +127,15 @@ class SelectImage extends React.Component {
 }
 // <Image source={{uri: `data:image/gif;base64,${encodedData}`}} />
 
-export default SelectImage
+
+const mapStateToProps = (state) => ({
+  album: state.album
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  addPhoto: (photo) => dispatch(addPhoto(photo))
+});
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(SelectImage);

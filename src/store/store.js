@@ -10,7 +10,7 @@ const persistConfig = {
  key: 'root',
  storage: storage,
  stateReconciler: autoMergeLevel2,  // see "Merge Process" section for details.
- whitelist: ['user']
+ whitelist: ['user', 'album']
 };
 
 const persistReducerConst = persistReducer(persistConfig, RootReducer);

@@ -1,4 +1,4 @@
-import { RECEIVE_USER } from '../actions/user_actions.js';
+import { RECEIVE_USER, ADD_PHOTO, DELETE_PHOTO } from '../actions/user_actions.js';
 
 
 
