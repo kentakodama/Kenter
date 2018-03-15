@@ -44,9 +44,14 @@ class Login extends React.Component {
   }
 
   returningUser(oldUser) {
+    const user = {
+      id: oldUser.id,
+      name: oldUser.name,
+      photoURL: oldUser.photoURL,
+      about: oldUser.about
+    }
     const { navigate } = this.props.navigation;
-    console.log('getting old user', oldUser);
-    this.props.receiveUser(oldUser)
+    this.props.receiveUser(user)
     navigate('Main')
   }
 

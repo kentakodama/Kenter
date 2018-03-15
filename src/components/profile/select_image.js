@@ -18,14 +18,10 @@ class SelectImage extends React.Component {
 
    constructor(props){
      super(props)
-     console.log(this.props);
-     this.state = {photo: 'http://www.tiptoncommunications.com/components/com_easyblog/themes/wireframe/images/placeholder-image.png'}
      this.uploadImage = this.uploadImage.bind(this)
-
    }
 
    storePhotoLocally(photo) {
-     console.log('photo data herererere', photo);
      let photoObject = Object.assign({}, photo)
      photoObject['id'] = `${photo.timestamp}${photo.fileName}`
 
@@ -41,34 +37,39 @@ class SelectImage extends React.Component {
         console.log('canceling save');
         return
       }
-      this.setState({ photo: photo.data })
 
       this.storePhotoLocally(photo)
 
-      this.uploadImage(photo.uri)
-        .then(url => console.log(url))
+      this.uploadImage(photo)
+        .then(photo => console.log('logging photo in then statement', photo))
         .catch(error => console.log(error))
     })
   }
 
 
 
-  uploadImage(uri, mime = 'application/octet-stream'){
+  uploadImage(photo, mime = 'application/octet-stream'){
+    console.log('photo object', photo);
+    //
 
+    //just the location on local device
+    const uri = photo.uri
     const storage = firebase.storage()
+    
     return new Promise((resolve, reject) => {
       const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri
+
       const sessionId = new Date().getTime()
       let uploadBlob = null
+
+      // creating reference here
       const imageRef = storage.ref('images').child(`${sessionId}`)
 
       fs.readFile(uploadUri, 'base64')
         .then((data) => {
-          console.log('data', data);
           return Blob.build(data, { type: `${mime};BASE64` })
         })
         .then((blob) => {
-          console.log('blob', blob);
           uploadBlob = blob
           return imageRef.put(blob, { contentType: mime })
         })
@@ -78,9 +79,6 @@ class SelectImage extends React.Component {
         })
         .then((url) => {
           console.log(url);
-          const photoURLs = this.state.photos.slice();
-          photoURLs.push(url)
-          this.setState({photos: photoURLs})
 
           resolve(url)
         })
