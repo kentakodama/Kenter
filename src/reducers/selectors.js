@@ -10,3 +10,12 @@ export const deletePhoto = (album, photoId) => {
   });
   return duplicate;
 }
+
+
+export const handleAddReference = (user, photoId) => {
+
+  let duplicate = Object.assign({}, user)
+  duplicate.photoReferences.push(photoId)
+
+  return duplicate
+}

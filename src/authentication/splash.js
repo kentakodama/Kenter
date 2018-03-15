@@ -24,7 +24,8 @@ class Splash extends React.Component {
       id: oldUser.id,
       name: oldUser.name,
       photoURL: oldUser.photoURL,
-      about: oldUser.about
+      about: oldUser.about,
+      photoReferences: oldUser.addPhotoReference
     }
     console.log('user', user);
     const { navigate } = this.props.navigation;

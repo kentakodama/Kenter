@@ -35,7 +35,8 @@ class Login extends React.Component {
       id: oldUser.id,
       name: oldUser.name,
       photoURL: oldUser.photoURL,
-      about: oldUser.about
+      about: oldUser.about,
+      photoReferences: oldUser.photoReferences
     }
     console.log('user', user);
     const { navigate } = this.props.navigation;
@@ -49,7 +50,8 @@ class Login extends React.Component {
       id: user.uid,
       name: user.displayName,
       photoURL: user.photoURL,
-      about: 'Tell us about yourself'
+      about: 'Tell us about yourself',
+      photoReferences: []
     }
     this.props.createNewUser(newUser) // to database
     this.props.receiveUser(newUser) // to state

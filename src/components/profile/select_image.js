@@ -6,6 +6,7 @@ import RNFetchBlob from 'react-native-fetch-blob'
 import { Image, Text, Button, View, Platform, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import * as firebase from 'firebase';
 import { addPhoto } from '../../actions/album_actions'
+import { addPhotoReference } from '../../actions/user_actions'
 
 const Blob = RNFetchBlob.polyfill.Blob
 const fs = RNFetchBlob.fs
@@ -37,10 +38,12 @@ class SelectImage extends React.Component {
         console.log('canceling save');
         return
       }
+      let photoObject = Object.assign({}, photo)
+      photoObject['id'] = `${photo.timestamp}${photo.fileName}`
 
-      this.storePhotoLocally(photo)
+      this.storePhotoLocally(photoObject)
 
-      this.uploadImage(photo)
+      this.uploadImage(photoObject)
         .then(photo => console.log('logging photo in then statement', photo))
         .catch(error => console.log(error))
     })
@@ -59,13 +62,13 @@ class SelectImage extends React.Component {
     return new Promise((resolve, reject) => {
       const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri
 
-      // const currentUser = firebase.auth().currentUser
-      console.log('currentUser', currentUser);
-      const storageId = photo.id
+      const currentUser = firebase.auth().currentUser
+
+      console.log('photo is here trying to store', photo);
       let uploadBlob = null
 
       // creating reference here
-      const imageRef = storage.ref('images').child(`${sessionId}`)
+      const imageRef = storage.ref(`images/${currentUser.uid}`).child(`${photo.id}`)
 
       fs.readFile(uploadUri, 'base64')
         .then((data) => {
@@ -76,6 +79,7 @@ class SelectImage extends React.Component {
           return imageRef.put(blob, { contentType: mime })
         })
         .then(() => {
+          this.props.addPhotoReference(photo.id)
           uploadBlob.close()
           return imageRef.getDownloadURL()
         })
@@ -128,7 +132,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  addPhoto: (photo) => dispatch(addPhoto(photo))
+  addPhoto: (photo) => dispatch(addPhoto(photo)),
+  addPhotoReference: (photo) => dispatch(addPhotoReference(photo))
 });
 
 

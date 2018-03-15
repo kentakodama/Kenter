@@ -1,5 +1,5 @@
-import { RECEIVE_USER, ADD_PHOTO, DELETE_PHOTO } from '../actions/user_actions.js';
-
+import { RECEIVE_USER, ADD_PHOTO_REFERENCE} from '../actions/user_actions.js';
+import { handleAddReference } from './selectors'
 
 
 const defaultState = {};
@@ -9,6 +9,8 @@ const UserReducer = (state = defaultState, action) => {
   switch (action.type) {
     case RECEIVE_USER:
       return action.user;
+    case ADD_PHOTO_REFERENCE:
+      return handleAddReference(state, action.photoId)
     case 'persist/REHYDRATE':
       if(!action.payload) {
         return {}
