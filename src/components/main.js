@@ -35,7 +35,7 @@ class Main extends React.Component {
           renderIcon={() => <Icon name="users" size={22} color="#666"/>}
           renderSelectedIcon={() => <Icon name="users" size={22} color="#3496f0"/>}
           onPress={() => this.setState({selectedTab: 'users'})}>
-          <Card/>
+          <Gallery/>
         </TabNavigator.Item>
         <TabNavigator.Item
           selected={this.state.selectedTab === 'envelope'}

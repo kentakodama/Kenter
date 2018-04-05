@@ -19,3 +19,12 @@ export const handleAddReference = (user, photoId) => {
 
   return duplicate
 }
+
+export const convertUsersToArray = (object) => {
+
+  let array = [];
+  Object.keys(object).forEach((key)=> {
+    array.push(object[key]);
+  })
+  return array;
+}

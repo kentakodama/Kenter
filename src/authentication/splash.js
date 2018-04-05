@@ -27,19 +27,18 @@ class Splash extends React.Component {
       about: oldUser.about,
       photoReferences: oldUser.addPhotoReference
     }
-    console.log('user', user);
+
     const { navigate } = this.props.navigation;
     this.props.receiveUser(user)
     navigate('Main')
   }
 
   handleUser(user) {
-    console.log('auth user', user);
+
     const allUsersRef = firebase.database().ref('users');
 
     allUsersRef.child(user.uid).once('value', (snapshot) => {
       const potentialUser = snapshot.val()
-      console.log('potentialUser', potentialUser);
       this.returningUser(potentialUser)
 
     });

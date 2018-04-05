@@ -21,9 +21,17 @@ export const postNewUser = (user) => {
 
 export const postUserAboutMe = (user) => {
   const userAboutRef = db.ref(`users/${user.id}/about`);
-  console.log('api_util', user.about);
   userAboutRef.set(user.about)
 }
+
+// export const getUserProfiles = () => {
+//   const usersRef = db.ref('users');
+//   usersRef.once('value', (snapshot) => {
+//     console.log(snapshot.val());
+//       return snapshot.val();
+//
+//     });
+// }
 
 // export const postNewUser = (user, id) => {
 //

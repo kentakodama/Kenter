@@ -8,6 +8,8 @@ class Card extends React.Component {
     this.state = {details: false}
   }
 
+
+
   render () {
 
     if(this.state.details) {

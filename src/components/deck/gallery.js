@@ -1,39 +1,71 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { StyleSheet, Text, View, Button } from 'react-native';
-import * as firebase from 'firebase';
+import firebase from '../../firebase';
 import Swiper from 'react-native-deck-swiper';
+import * as APIUtil from '../../api_util/api_util'
+import { receiveUsersProfiles } from '../../actions/gallery_actions'
 
 class Gallery extends React.Component {
 
-  render () {
-    return(
+  constructor(props) {
+    super(props)
+    this.state = {profiles: []}
+    console.log('rendering gallery');
+  }
 
-      <View style={styles.container}>
-          <Swiper
-              cards={['DO', 'MORE', 'OF', 'WHAT', 'MAKES', 'YOU', 'HAPPY', 'DO', 'MORE', 'OF', 'WHAT', 'MAKES', 'YOU', 'HAPPY']}
-              renderCard={(card) => {
-                  return (
-                      <View style={styles.card}>
-                          <Text style={styles.text}>{card}</Text>
-                      </View>
-                  )
-              }}
-              onSwipedTop={() => { console.log('SUPER LIKED!')}}
-              onSwipedLeft={() => { console.log('dislike')}}
-              onSwipedRight={() => { console.log('like!')}}
-              onSwiped={(cardIndex) => {console.log(cardIndex)}}
-              onSwipedAll={() => {console.log('onSwipedAll')}}
-              cardIndex={0}
-              backgroundColor={'#4FD0E9'}
-              stackSize= {3}>
-              <Button
-                  onPress={() => {console.log('oulala')}}
-                  title="Press me">
-                  You can press me
-              </Button>
-          </Swiper>
-      </View>
-    )
+  componentWillMount() {
+    console.log('loading');
+    this.getUserProfiles()
+  }
+
+  getUserProfiles = () => {
+    const usersRef = firebase.database().ref('users');
+    usersRef.once('value', (snapshot) => {
+      this.props.receiveUsersProfiles(snapshot.val());
+      });
+  }
+
+  render () {
+
+    const profiles = this.props.gallery
+
+    if(!profiles) {
+      return(
+        <View style={styles.container}>
+          <Text>LOADING</Text>
+        </View>
+      )
+
+    } else {
+      return(
+        <View style={styles.container}>
+            <Swiper
+                cards={['DO', 'MORE', 'OF', 'WHAT', 'MAKES', 'YOU', 'HAPPY', 'DO', 'MORE', 'OF', 'WHAT', 'MAKES', 'YOU', 'HAPPY']}
+                renderCard={(card) => {
+                    return (
+                        <View style={styles.card}>
+                            <Text style={styles.text}>{card}</Text>
+                        </View>
+                    )
+                }}
+                onSwipedTop={() => { console.log('SUPER LIKED!')}}
+                onSwipedLeft={() => { console.log('dislike')}}
+                onSwipedRight={() => { console.log('like!')}}
+                onSwiped={(cardIndex) => {console.log(cardIndex)}}
+                onSwipedAll={() => {console.log('onSwipedAll')}}
+                cardIndex={0}
+                backgroundColor={'#4FD0E9'}
+                stackSize= {3}>
+                <Button
+                    onPress={() => {console.log('oulala')}}
+                    title="Press me">
+                    You can press me
+                </Button>
+            </Swiper>
+        </View>
+      )
+    }
   }
 }
 
@@ -59,4 +91,12 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Gallery
+
+const mapStateToProps = (state) => ({
+  gallery: state.gallery
+});
+const mapDispatchToProps = (dispatch) => ({
+  receiveUsersProfiles: (id) => dispatch(receiveUsersProfiles(id))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Gallery);

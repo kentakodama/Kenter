@@ -20,3 +20,7 @@ export const createNewUser = (user) => dispatch => (
 export const updateUserAboutMe = (user) => dispatch => (
   APIUtil.postUserAboutMe(user)
 )
+
+// export const retrieveUsersProfiles = () => dispatch => (
+//   APIUtil.getUserProfiles()
+// )
