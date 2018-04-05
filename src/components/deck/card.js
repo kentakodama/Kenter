@@ -20,6 +20,7 @@ class Card extends React.Component {
               <Image style={{flex: 1, width: '100%'}} source={{uri: this.props.profile.photoURL}}/>
           </TouchableOpacity>
           <Text style={styles.text}>{this.props.profile.name}</Text>
+          <Text style={styles.text}>{this.props.profile.about}</Text>
         </View>
       )
     } else {
