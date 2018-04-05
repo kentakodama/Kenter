@@ -10,7 +10,7 @@ class Gallery extends React.Component {
 
       <View style={styles.container}>
           <Swiper
-              cards={['DO', 'MORE', 'OF', 'WHAT', 'MAKES', 'YOU', 'HAPPY']}
+              cards={['DO', 'MORE', 'OF', 'WHAT', 'MAKES', 'YOU', 'HAPPY', 'DO', 'MORE', 'OF', 'WHAT', 'MAKES', 'YOU', 'HAPPY']}
               renderCard={(card) => {
                   return (
                       <View style={styles.card}>
@@ -18,6 +18,9 @@ class Gallery extends React.Component {
                       </View>
                   )
               }}
+              onSwipedTop={() => { console.log('SUPER LIKED!')}}
+              onSwipedLeft={() => { console.log('dislike')}}
+              onSwipedRight={() => { console.log('like!')}}
               onSwiped={(cardIndex) => {console.log(cardIndex)}}
               onSwipedAll={() => {console.log('onSwipedAll')}}
               cardIndex={0}
