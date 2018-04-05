@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Image, Text, View, TouchableOpacity } from 'react-native';
 
 class Card extends React.Component {
 
@@ -15,19 +15,21 @@ class Card extends React.Component {
     if(this.state.details) {
       return(
         <View style={styles.container}>
-          <TouchableOpacity style={{flex: 1, width: '100%', backgroundColor: 'blue'}}
+          <TouchableOpacity style={{flex: 4, width: '100%', backgroundColor: 'blue'}}
               onPress={()=> this.setState({details:false})}>
-              <Text style={styles.text}>Show DEtails</Text>
+              <Image style={{flex: 1, width: '100%'}} source={{uri: this.props.profile.photoURL}}/>
           </TouchableOpacity>
+          <Text style={styles.text}>{this.props.profile.name}</Text>
         </View>
       )
     } else {
       return(
         <View style={styles.container}>
-        <TouchableOpacity style={{flex: 1, width: '100%', backgroundColor: 'red'}}
-            onPress={()=> this.setState({details:true})}>
-            <Text style={styles.text}>Hide details</Text>
-        </TouchableOpacity>
+          <TouchableOpacity style={{flex: 4, width: '100%', backgroundColor: 'red'}}
+              onPress={()=> this.setState({details:true})}>
+              <Image style={{flex: 1, width: '100%'}} source={{uri: this.props.profile.photoURL}}/>
+          </TouchableOpacity>
+          <Text style={styles.text}>{this.props.profile.name}</Text>
         </View>
       )
     }
@@ -50,8 +52,9 @@ const styles = StyleSheet.create({
     backgroundColor: "white"
   },
   text: {
+    flex: 1,
     textAlign: "center",
-    color: 'white',
+    color: 'black',
     fontSize: 50,
     backgroundColor: "transparent"
   }

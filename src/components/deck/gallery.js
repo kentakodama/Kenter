@@ -46,9 +46,8 @@ class Gallery extends React.Component {
                 renderCard={(card) => {
                   console.log(card);
                     return (
-                        <View style={styles.card}>
-                            <Text style={styles.text}>{card.name}</Text>
-                        </View>
+                        <Card profile={card}/>
+                      
                     )
                 }}
                 onSwipedTop={() => { console.log('SUPER LIKED!')}}
