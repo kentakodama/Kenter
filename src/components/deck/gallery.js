@@ -5,6 +5,7 @@ import firebase from '../../firebase';
 import Swiper from 'react-native-deck-swiper';
 import * as APIUtil from '../../api_util/api_util'
 import { receiveUsersProfiles } from '../../actions/gallery_actions'
+import Card from './card'
 
 class Gallery extends React.Component {
 
@@ -29,7 +30,7 @@ class Gallery extends React.Component {
   render () {
 
     const profiles = this.props.gallery
-
+    console.log(profiles, 'profiles');
     if(!profiles) {
       return(
         <View style={styles.container}>
@@ -41,11 +42,12 @@ class Gallery extends React.Component {
       return(
         <View style={styles.container}>
             <Swiper
-                cards={['DO', 'MORE', 'OF', 'WHAT', 'MAKES', 'YOU', 'HAPPY', 'DO', 'MORE', 'OF', 'WHAT', 'MAKES', 'YOU', 'HAPPY']}
+                cards={profiles}
                 renderCard={(card) => {
+                  console.log(card);
                     return (
                         <View style={styles.card}>
-                            <Text style={styles.text}>{card}</Text>
+                            <Text style={styles.text}>{card.name}</Text>
                         </View>
                     )
                 }}
