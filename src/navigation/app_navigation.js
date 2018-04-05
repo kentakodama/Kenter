@@ -3,7 +3,7 @@ import { StackNavigator} from 'react-navigation';
 import Login from '../authentication/login';
 import Splash from '../authentication/splash';
 import CompleteProfile from '../components/complete_profile';
-import SwipePage from '../components/deck/swipe_page';
+import Gallery from '../components/deck/gallery';
 import Main from '../components/main'
 import EditAbout from '../components/profile/edit_about'
 import AboutMe from '../components/profile/about_me'
@@ -21,8 +21,8 @@ const AppNavigator = StackNavigator(
     CompleteProfile: {
       screen: CompleteProfile
     },
-    SwipePage: {
-      screen: SwipePage
+    Gallery: {
+      screen: Gallery
     },
     Main: {
       screen: Main

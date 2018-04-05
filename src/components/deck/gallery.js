@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import * as firebase from 'firebase';
 
-class SwipePage extends React.Component {
+class Gallery extends React.Component {
 
   render() {
     return (
@@ -22,4 +22,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SwipePage
+export default Gallery

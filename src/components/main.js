@@ -5,8 +5,8 @@ import TabNavigator from 'react-native-tab-navigator';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import Messenger from '../components/chats/messenger'
-import SwipePage from '../components/deck/swipe_page'
 import Profile from '../components/profile/profile'
+import Gallery from '../components/deck/gallery'
 
 class Main extends React.Component {
 
@@ -19,16 +19,6 @@ class Main extends React.Component {
     return (
       <TabNavigator style={styles.container}>
         <TabNavigator.Item
-          selected={this.state.selectedTab === 'home'}
-          title="Home"
-          selectedTitleStyle={{color: "#3496f0"}}
-          renderIcon={() => <Icon name="home" size={22} color="#666"/>}
-          renderSelectedIcon={() => <Icon name="home" size={22} color="#3496f0"/>}
-          badgeText="1"
-          onPress={() => this.setState({selectedTab: 'home'})}>
-          <Messenger/>
-        </TabNavigator.Item>
-        <TabNavigator.Item
           selected={this.state.selectedTab === 'profile'}
           title="Profile"
           selectedTitleStyle={{color: "#3496f0"}}
@@ -36,6 +26,25 @@ class Main extends React.Component {
           renderSelectedIcon={() => <Icon name="user" size={22} color="#3496f0"/>}
           onPress={() => this.setState({selectedTab: 'profile'})}>
           <Profile navigation={this.props.navigation}/>
+        </TabNavigator.Item>
+        <TabNavigator.Item
+          selected={this.state.selectedTab === 'users'}
+          title="Gallery"
+          selectedTitleStyle={{color: "#3496f0"}}
+          renderIcon={() => <Icon name="users" size={22} color="#666"/>}
+          renderSelectedIcon={() => <Icon name="users" size={22} color="#3496f0"/>}
+          onPress={() => this.setState({selectedTab: 'users'})}>
+          <Gallery/>
+        </TabNavigator.Item>
+        <TabNavigator.Item
+          selected={this.state.selectedTab === 'envelope'}
+          title="Messages"
+          selectedTitleStyle={{color: "#3496f0"}}
+          renderIcon={() => <Icon name="envelope" size={22} color="#666"/>}
+          renderSelectedIcon={() => <Icon name="envelope" size={22} color="#3496f0"/>}
+          badgeText="1"
+          onPress={() => this.setState({selectedTab: 'envelope'})}>
+          <Messenger/>
         </TabNavigator.Item>
       </TabNavigator>
     );
