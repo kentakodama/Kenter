@@ -21,7 +21,7 @@ class Profile extends React.Component {
         <Gallery style={{flex: 1, width: '100%'}}/>
         <TouchableOpacity style={{flex: 1, width: '100%', backgroundColor: 'blue'}}
             onPress={()=> navigate('SelectImage')}>
-            <Text>Upload a photo</Text>
+            <Text style={styles.text}>Upload a photo</Text>
         </TouchableOpacity>
         <AboutMe navigation={this.props.navigation} style={{flex: 1, width: '100%'}}/>
       </View>
@@ -36,6 +36,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  text: {
+    fontSize: 40,
+    color: 'white'
   }
 });
 

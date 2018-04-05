@@ -21,7 +21,7 @@ class AboutMe extends React.Component {
       <View style={styles.container}>
           <TouchableHighlight onPress={()=> this.editAbout()}
                   style={{flex: 1, width: '100%', backgroundColor: 'purple'}}>
-                    <Text>Edit your shit</Text>
+                    <Text style={styles.text}>Edit your profile text</Text>
           </TouchableHighlight>
         <View style={{flex: 4, width: '100%', backgroundColor: 'gray'}}>
           <Text>{this.props.about}</Text>
@@ -40,6 +40,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  text: {
+    fontSize: 40,
+    color: 'white'
   }
 });
 
