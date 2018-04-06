@@ -27,10 +27,9 @@ export const postUserAboutMe = (user) => {
 }
 
 export const postPhotoReference = (user, photoURL) => {
-  console.log(user, photoURL);
   const userPhotoRef = db.ref(`users/${user.uid}/photoReferences`);
   let updates = {};
-  updates[1] = photoURL;
-  console.log(updates);
+  const key = Math.floor(Math.random() * Math.floor(100))
+  updates[`${key}`] = photoURL;
   userPhotoRef.update(updates)
 }
