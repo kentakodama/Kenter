@@ -11,7 +11,7 @@ class Gallery extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = {profiles: []}
+    this.state = {profiles: [], details: false}
     console.log('rendering gallery');
   }
 
@@ -30,8 +30,10 @@ class Gallery extends React.Component {
   render () {
 
     const profiles = this.props.gallery
-    console.log(profiles, 'profiles');
-    if(!profiles) {
+
+    let details = this.state.details
+
+    if(details) {
       return(
         <View style={styles.container}>
           <Text>LOADING</Text>

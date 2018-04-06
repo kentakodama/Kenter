@@ -1,74 +1,71 @@
 import React from 'react';
-import { StyleSheet, Image, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Modal, Image, FlatList, Text, View, TouchableOpacity } from 'react-native';
 import Swiper from 'react-native-swiper';
 import firebase from '../../firebase';
+// import ProfileModal from './profile_modal'
 
 
 class Card extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = {details: false}
+    this.state = {modalVisible: false}
   }
 
 // <Image style={{flex: 1, width: '100%'}} source={{uri: this.props.profile.photoURL}}/>
+setModalVisible(visible) {
+  this.setState({modalVisible: visible});
+}
 
   render () {
 
-    // const profile = this.props.profile;
-    // console.log(profile);
-    // const userId = profile.id
-    // const usersRef = firebase.storage().ref(`images/${userId}`)
-    // usersRef.getDownloadURL().then((url) => console.log(url))
-    // // const album =
-    //
+    const album = [];
+    const profile = this.props.profile;
+    console.log(profile);
+    const userId = profile.id
+    const photoRef = firebase.database().ref(`users/${userId}/photoReferences`)
+    photoRef.once('value', (snapshot) => {
+      const photoReferencesObject = snapshot.val();
+      Object.values(photoReferencesObject).forEach((id) => {
+        const imageRef = firebase.storage().ref(`images/${userId}/${id}`)
+        imageRef.getDownloadURL().then((url) => album.push(url))
+        // .then((url) => console.log(url))
+      })
+    })
+    console.log(album);
 
-    //get the userid of profile
-    // go to images/userid
-    //create array of album
-    //place into swiper
-
-
-    if(this.state.details) {
-
-      const profile = this.props.profile;
-
-      const userId = profile.id
-      console.log(userId);
-      const photoRef = firebase.database().ref(`users/${userId}/photoReferences`)
-      // usersRef.getDownloadURL().then((url) => console.log(url))
-      photoRef.once('value', (snapshot) => console.log(snapshot.val()))
-
-      const album = []
-
-
+    if(this.state.modalVisible) {
 
       return(
-        <View style={styles.container}>
+        <TouchableOpacity onPress={() => {this.setModalVisible(!this.state.modalVisible)}} style={{marginTop: 22}}>
+          <Modal
+            animationType="fade"
+            transparent={false}
+            visible={this.state.modalVisible}
+            onRequestClose={() => {
+              alert('Modal has been closed.');
+            }}>
+            <TouchableOpacity style={{flex: 1, width: '100%', marginTop: 22}} onPress={() => {this.setModalVisible(!this.state.modalVisible)}}>
+              <View>
+                <Text>Hello World!</Text>
+              </View>
+            </TouchableOpacity>
+          </Modal>
 
-        </View>
+          <TouchableOpacity
+            onPress={() => {
+              this.setModalVisible(true);
+            }}>
+            <Text>Show Modal</Text>
+          </TouchableOpacity>
+        </TouchableOpacity>
       )
 
-
-      // <TouchableOpacity style={{flex: 4, width: '100%', backgroundColor: 'blue'}}
-      //     onPress={()=> this.setState({details:false})}>
-      //     <Swiper horizontal={true}>
-      //         {album.map((item, key) => {
-      //            return (
-      //                <Image key={key} style={styles.images}source={{uri: `data:image/gif;base64,${item.data}`}} />
-      //            )
-      //          })}
-      //     </Swiper>
-      // </TouchableOpacity>
-      //
-      //
-      // <Text style={styles.text}>{this.props.profile.name}</Text>
-      // <Text style={styles.text}>{this.props.profile.about}</Text>
     } else {
       return(
         <View style={styles.container}>
           <TouchableOpacity style={{flex: 4, width: '100%', backgroundColor: 'red'}}
-              onPress={()=> this.setState({details:true})}>
+              onPress={()=> this.setState({modalVisible: true})}>
               <Image style={{flex: 1, width: '100%'}} source={{uri: this.props.profile.photoURL}}/>
           </TouchableOpacity>
           <Text style={styles.text}>{this.props.profile.name}</Text>
@@ -92,6 +89,9 @@ const styles = StyleSheet.create({
     borderColor: "#E8E8E8",
     justifyContent: "center",
     backgroundColor: "white"
+  },
+  images: {
+    flex: 1
   },
   text: {
     flex: 1,
