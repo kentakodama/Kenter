@@ -44,7 +44,10 @@ class SelectImage extends React.Component {
 
       this.storePhotoLocally(photoObject)
       this.uploadImage(photoObject)
-        .then(photo => console.log('logging photo in then statement', photo))
+        .then( () => {
+          console.log('after upload');
+
+        })
         .catch(error => console.log(error))
     })
   }
@@ -66,15 +69,12 @@ class SelectImage extends React.Component {
 
       const currentUser = firebase.auth().currentUser
 
-
       let uploadBlob = null
 
       // creating reference here
       const imageRef = storage.ref(`images/${currentUser.uid}`).child(`${photo.id}`)
+      this.storePhotoReferenceInDatabase(photo.id)
 
-      imageRef.getDownloadURL().then((url) => this.storePhotoReferenceInDatabase(url))
-      // this.storePhotoReferenceInDatabase(url)
-      // console.log('downloadURL', downloadURL);
 
       fs.readFile(uploadUri, 'base64')
         .then((data) => {
@@ -86,7 +86,6 @@ class SelectImage extends React.Component {
         })
         .then(() => {
           this.props.addPhotoReference(photo.id)
-
           uploadBlob.close()
           return imageRef.getDownloadURL()
         })

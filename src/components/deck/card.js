@@ -30,32 +30,40 @@ class Card extends React.Component {
 
 
     if(this.state.details) {
+
       const profile = this.props.profile;
 
       const userId = profile.id
-      const usersRef = firebase.storage().ref(`images/${userId}/2009-10-09T21:09:20ZIMG_0002.JPG`)
-      usersRef.getDownloadURL().then((url) => console.log(url))
+      console.log(userId);
+      const photoRef = firebase.database().ref(`users/${userId}/photoReferences`)
+      // usersRef.getDownloadURL().then((url) => console.log(url))
+      photoRef.once('value', (snapshot) => console.log(snapshot.val()))
+
+      const album = []
 
 
 
       return(
         <View style={styles.container}>
-          <TouchableOpacity style={{flex: 4, width: '100%', backgroundColor: 'blue'}}
-              onPress={()=> this.setState({details:false})}>
-              <Swiper horizontal={true}>
-                  {album.map((item, key) => {
-                     return (
-                         <Image key={key} style={styles.images}source={{uri: `data:image/gif;base64,${item.data}`}} />
-                     )
-                   })}
-              </Swiper>
-          </TouchableOpacity>
 
-
-          <Text style={styles.text}>{this.props.profile.name}</Text>
-          <Text style={styles.text}>{this.props.profile.about}</Text>
         </View>
       )
+
+
+      // <TouchableOpacity style={{flex: 4, width: '100%', backgroundColor: 'blue'}}
+      //     onPress={()=> this.setState({details:false})}>
+      //     <Swiper horizontal={true}>
+      //         {album.map((item, key) => {
+      //            return (
+      //                <Image key={key} style={styles.images}source={{uri: `data:image/gif;base64,${item.data}`}} />
+      //            )
+      //          })}
+      //     </Swiper>
+      // </TouchableOpacity>
+      //
+      //
+      // <Text style={styles.text}>{this.props.profile.name}</Text>
+      // <Text style={styles.text}>{this.props.profile.about}</Text>
     } else {
       return(
         <View style={styles.container}>
