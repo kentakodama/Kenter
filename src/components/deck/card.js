@@ -46,9 +46,7 @@ setModalVisible(visible) {
               alert('Modal has been closed.');
             }}>
             <TouchableOpacity style={{flex: 1, width: '100%', marginTop: 22}} onPress={() => {this.setModalVisible(!this.state.modalVisible)}}>
-              <View>
-                <Text>Hello World!</Text>
-              </View>
+              <Image style={{flex: 1, width: '100%'}} source={{uri: this.props.profile.photoURL}}/>
             </TouchableOpacity>
           </Modal>
 
