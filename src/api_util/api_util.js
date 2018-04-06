@@ -26,10 +26,11 @@ export const postUserAboutMe = (user) => {
   userAboutRef.set(user.about)
 }
 
-export const postPhotoReference = (user, photoId) => {
-  console.log(user, photoId);
-  const userPhotoRef = db.ref(`users/${user.id}/photoReferences`);
+export const postPhotoReference = (user, photoURL) => {
+  console.log(user, photoURL);
+  const userPhotoRef = db.ref(`users/${user.uid}/photoReferences`);
   let updates = {};
-  updates[photoId] = true;
+  updates[1] = photoURL;
+  console.log(updates);
   userPhotoRef.update(updates)
 }
