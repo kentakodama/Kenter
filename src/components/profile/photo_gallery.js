@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import Swiper from 'react-native-swiper';
 import { Image, View, StyleSheet} from 'react-native';
 
-class Gallery extends React.Component {
+class PhotoGallery extends React.Component {
 
    constructor(props){
      super(props)
@@ -47,4 +47,4 @@ const mapDispatchToProps = (dispatch) => ({
 
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Gallery);
+export default connect(mapStateToProps, mapDispatchToProps)(PhotoGallery);

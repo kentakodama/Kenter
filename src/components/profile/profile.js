@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import * as firebase from 'firebase';
 import AboutMe from './about_me'
 import SelectImage from './select_image'
-import Gallery from './gallery'
+import PhotoGallery from './photo_gallery'
 
 class Profile extends React.Component {
 
@@ -18,7 +18,7 @@ class Profile extends React.Component {
     return (
       <View style={styles.container}>
         <Text style={{flex: 1}}>LOGO</Text>
-        <Gallery style={{flex: 1, width: '100%'}}/>
+        <PhotoGallery style={{flex: 1, width: '100%'}}/>
         <TouchableOpacity style={{flex: 1, width: '100%', backgroundColor: 'blue'}}
             onPress={()=> navigate('SelectImage')}>
             <Text style={styles.text}>Upload a photo</Text>

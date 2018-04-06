@@ -16,6 +16,8 @@ export const getUser = (userId) => {
 export const postNewUser = (user) => {
     const userRef = db.ref(`users/${user.id}`);
     userRef.set(user) // to database
+    const userPhotoRef = db.ref(`users/${user.id}/photoReferences`);
+    userPhotoRef.set({ 0: user.photoURL})
 }
 
 
@@ -24,25 +26,10 @@ export const postUserAboutMe = (user) => {
   userAboutRef.set(user.about)
 }
 
-// export const getUserProfiles = () => {
-//   const usersRef = db.ref('users');
-//   usersRef.once('value', (snapshot) => {
-//     console.log(snapshot.val());
-//       return snapshot.val();
-//
-//     });
-// }
-
-// export const postNewUser = (user, id) => {
-//
-//     let userRef = db.ref(`users/${id}`);
-//     console.log('creating new user', user);
-//
-//     const newUser = {
-//       id,
-//       name: user.displayName,
-//       photoURL: user.photoURL,
-//       about: 'Tell us about yourself'
-//     }
-//     userRef.set(newUser).then(return user)
-// }
+export const postPhotoReference = (user, photoId) => {
+  console.log(user, photoId);
+  const userPhotoRef = db.ref(`users/${user.id}/photoReferences`);
+  let updates = {};
+  updates[photoId] = true;
+  userPhotoRef.update(updates)
+}

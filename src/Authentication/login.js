@@ -50,8 +50,7 @@ class Login extends React.Component {
       id: user.uid,
       name: user.displayName,
       photoURL: user.photoURL,
-      about: 'Tell us about yourself',
-      photoReferences: []
+      about: 'Tell us about yourself'
     }
     this.props.createNewUser(newUser) // to database
     this.props.receiveUser(newUser) // to state

@@ -6,7 +6,7 @@ import RNFetchBlob from 'react-native-fetch-blob'
 import { Image, Text, Button, View, Platform, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import * as firebase from 'firebase';
 import { addPhoto } from '../../actions/album_actions'
-import { addPhotoReference } from '../../actions/user_actions'
+import { addPhotoReference, postPhotoReference } from '../../actions/user_actions'
 
 const Blob = RNFetchBlob.polyfill.Blob
 const fs = RNFetchBlob.fs
@@ -42,11 +42,15 @@ class SelectImage extends React.Component {
       photoObject['id'] = `${photo.timestamp}${photo.fileName}`
 
       this.storePhotoLocally(photoObject)
-
       this.uploadImage(photoObject)
         .then(photo => console.log('logging photo in then statement', photo))
         .catch(error => console.log(error))
     })
+  }
+
+  storePhotoReferenceInDatabase(url) {
+    const currentUser = firebase.auth().currentUser
+    this.props.postPhotoReference(currentUser, url)
   }
 
 
@@ -85,7 +89,7 @@ class SelectImage extends React.Component {
         })
         .then((url) => {
           console.log(url);
-
+          this.storePhotoReferenceInDatabase(url)
           resolve(url)
         })
         .catch((error) => {
@@ -133,7 +137,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   addPhoto: (photo) => dispatch(addPhoto(photo)),
-  addPhotoReference: (photo) => dispatch(addPhotoReference(photo))
+  addPhotoReference: (photo) => dispatch(addPhotoReference(photo)),
+  postPhotoReference: (user, photoId) => dispatch(postPhotoReference(user, photoId))
 });
 
 

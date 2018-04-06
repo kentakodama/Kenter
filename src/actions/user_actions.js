@@ -13,6 +13,10 @@ export const addPhotoReference = (photoId) => ({
   photoId
 });
 
+export const postPhotoReference = (user, photoId) => dispatch => (
+  APIUtil.postPhotoReference(user, photoId)
+)
+
 export const createNewUser = (user) => dispatch => (
   APIUtil.postNewUser(user)
 )
