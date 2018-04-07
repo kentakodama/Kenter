@@ -25,6 +25,11 @@ export const updateUserAboutMe = (user) => dispatch => (
   APIUtil.postUserAboutMe(user)
 )
 
+export const addLikeId = (user, likeId) => dispatch => (
+  APIUtil.postLikeId(user, likeId)
+)
+
+
 // export const retrieveUsersProfiles = () => dispatch => (
 //   APIUtil.getUserProfiles()
 // )

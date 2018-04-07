@@ -5,13 +5,14 @@ import firebase from '../../firebase';
 import Swiper from 'react-native-deck-swiper';
 import * as APIUtil from '../../api_util/api_util'
 import { receiveUsersProfiles } from '../../actions/gallery_actions'
+import { addLikeId } from '../../actions/user_actions'
 import Card from './card'
 
 class Gallery extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = {profiles: [], details: false}
+    this.state = {profiles: [], details: false, likedId: ''}
     console.log('rendering gallery');
   }
 
@@ -25,6 +26,12 @@ class Gallery extends React.Component {
     usersRef.once('value', (snapshot) => {
       this.props.receiveUsersProfiles(snapshot.val());
       });
+  }
+
+  handleLike(likedUserId) {
+    console.log('handleLike', likedUserId);
+    const currentUser = firebase.auth().currentUser
+    this.props.addLikeId(currentUser, likedUserId)
   }
 
   render () {
@@ -41,13 +48,14 @@ class Gallery extends React.Component {
       )
 
     } else {
-      let matchedUserId = ''
+
       return(
         <View pointerEvents={this.props.pointerEvents} style={styles.container}>
             <Swiper
                 cards={profiles}
                 renderCard={(card) => {
                   matchedUserId = card.id
+                  console.log('matchedUserId', matchedUserId);
                     return (
                         <Card profile={card}/>
 
@@ -55,7 +63,11 @@ class Gallery extends React.Component {
                 }}
                 verticalSwipe={false}
                 onSwipedLeft={() => { console.log('dislike')}}
-                onSwipedRight={() => { console.log('matchedUserId', matchedUserId)}}
+                onSwipedRight={() => {
+                  this.setState({likedId: matchedUserId})
+                  console.log('this.state.likedId', this.state.likedId);
+                  this.handleLike(this.state.likedId)
+                }}
                 onSwiped={(cardIndex) => {console.log(cardIndex)}}
                 onSwipedAll={() => {console.log('onSwipedAll')}}
                 cardIndex={0}
@@ -96,8 +108,10 @@ const mapStateToProps = (state) => ({
   gallery: state.gallery,
   pointerEvents: state.utlities.pointerEvents
 });
+
 const mapDispatchToProps = (dispatch) => ({
-  receiveUsersProfiles: (id) => dispatch(receiveUsersProfiles(id))
+  receiveUsersProfiles: (id) => dispatch(receiveUsersProfiles(id)),
+  addLikeId: (user, likeId) => dispatch(addLikeId(user, likeId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Gallery);

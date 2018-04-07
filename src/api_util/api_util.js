@@ -27,11 +27,17 @@ export const postUserAboutMe = (user) => {
 }
 
 export const postPhotoReference = (user, photoURL) => {
-  console.log('posting photo reference', user, photoURL);
   const userPhotoRef = db.ref(`users/${user.uid}/photoReferences`);
   let updates = {};
   const key = random(64)
-  console.log('random', key);
   updates[`${key}`] = photoURL;
   userPhotoRef.update(updates)
+}
+
+export const postLikeId = (user, likeId) => {
+  console.log('api util', likeId);
+  const likeIdsRef = db.ref(`users/${user.uid}/likeIds`);
+  let updates = {};
+  updates[`${likeId}`] = true;
+  likeIdsRef.update(updates)
 }
