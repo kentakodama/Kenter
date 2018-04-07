@@ -31,7 +31,7 @@ class Card extends React.Component {
       const photoReferencesObject = snapshot.val();
       Object.values(photoReferencesObject).forEach((id) => {
         firebase.storage().ref(`images/${userId}/${id}`).getDownloadURL().then((url) => this.setState((prevState) => {
-          return {references: [...prevState.references, url]}
+          return {references: [...prevState.references, {url: `${url}`}]}
         }))
         // .then((url) => console.log(url))
       })
@@ -67,11 +67,11 @@ class Card extends React.Component {
             onRequestClose={() => {
               alert('Modal has been closed.');
             }}>
-            <Swiper horizontal={true}>
+            <Swiper horizontal={true} loop={false}>
 
                   {album.map((item, key) => {
                      return (
-                         <Image key={key} style={{width: '100%', height: '75%'}} source={{uri: item}} />
+                         <Image key={key} style={{width: '100%', height: '75%'}} source={{uri: item.url}} />
                      )
                    })}
 

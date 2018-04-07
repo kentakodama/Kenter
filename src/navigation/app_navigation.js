@@ -37,6 +37,9 @@ const AppNavigator = StackNavigator(
   {
     initialRouteName: 'Index',
     headerMode: 'none',
+    navigationOptions: {
+        gesturesEnabled: false,
+    }
   }
 );
 
