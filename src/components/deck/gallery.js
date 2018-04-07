@@ -42,7 +42,7 @@ class Gallery extends React.Component {
 
     } else {
       return(
-        <View style={styles.container}>
+        <View pointerEvents={this.props.pointerEvents} style={styles.container}>
             <Swiper
                 cards={profiles}
                 renderCard={(card) => {
@@ -96,7 +96,8 @@ const styles = StyleSheet.create({
 
 
 const mapStateToProps = (state) => ({
-  gallery: state.gallery
+  gallery: state.gallery,
+  pointerEvents: state.utlities.pointerEvents
 });
 const mapDispatchToProps = (dispatch) => ({
   receiveUsersProfiles: (id) => dispatch(receiveUsersProfiles(id))

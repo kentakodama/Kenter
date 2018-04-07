@@ -43,10 +43,8 @@ class SelectImage extends React.Component {
       photoObject['id'] = `${photo.timestamp}${photo.fileName}`
 
       this.storePhotoLocally(photoObject)
-      this.uploadImage(photoObject)
-        .then( () => {
+      this.uploadImage(photoObject).then( () => {
           console.log('after upload');
-
         })
         .catch(error => console.log(error))
     })

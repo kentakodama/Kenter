@@ -1,7 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux'
 import { StyleSheet, ScrollView, Modal, Image, FlatList, Text, View, TouchableOpacity } from 'react-native';
 import Swiper from 'react-native-swiper';
 import firebase from '../../firebase';
+import {togglePointerEvents} from '../../actions/utilities_actions'
+
 // import ProfileModal from './profile_modal'
 
 
@@ -51,6 +54,12 @@ class Card extends React.Component {
 
   }
 
+
+  handleTap() {
+    this.setModalVisible(!this.state.modalVisible); //toggle View
+    this.props.togglePointerEvents();
+  }
+
   render () {
 
 
@@ -77,7 +86,7 @@ class Card extends React.Component {
 
             </Swiper>
 
-          <TouchableOpacity onPress={() => {this.setModalVisible(!this.state.modalVisible)}}><Text>Press this</Text></TouchableOpacity>
+          <TouchableOpacity onPress={() => this.handleTap()}><Text>Press this</Text></TouchableOpacity>
           </Modal>
 
       )
@@ -86,7 +95,7 @@ class Card extends React.Component {
       return(
         <View style={styles.container}>
           <TouchableOpacity style={{flex: 4, width: '100%', backgroundColor: 'red'}}
-              onPress={()=> this.setState({modalVisible: true})}>
+              onPress={() => this.handleTap()}>
               <Image style={{flex: 1, width: '100%'}} source={{uri: this.props.profile.photoURL}}/>
           </TouchableOpacity>
           <Text style={styles.text}>{this.props.profile.name}</Text>
@@ -123,4 +132,12 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Card
+// const mapStateToProps = (state) => ({
+//   gallery: state.gallery,
+//   pointerEvents: state.utlities.pointerEvents
+// });
+const mapDispatchToProps = (dispatch) => ({
+  togglePointerEvents: (id) => dispatch(togglePointerEvents(id))
+});
+
+export default connect(null, mapDispatchToProps)(Card);
