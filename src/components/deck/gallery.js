@@ -41,30 +41,28 @@ class Gallery extends React.Component {
       )
 
     } else {
+      let matchedUserId = ''
       return(
         <View pointerEvents={this.props.pointerEvents} style={styles.container}>
             <Swiper
                 cards={profiles}
                 renderCard={(card) => {
-                  console.log(card);
+                  matchedUserId = card.id
                     return (
                         <Card profile={card}/>
 
                     )
                 }}
+                verticalSwipe={false}
                 onSwipedTop={() => { console.log('SUPER LIKED!')}}
                 onSwipedLeft={() => { console.log('dislike')}}
-                onSwipedRight={() => { console.log('like!')}}
+                onSwipedRight={() => { console.log('matchedUserId', matchedUserId)}}
                 onSwiped={(cardIndex) => {console.log(cardIndex)}}
                 onSwipedAll={() => {console.log('onSwipedAll')}}
                 cardIndex={0}
                 backgroundColor={'#4FD0E9'}
                 stackSize= {3}>
-                <Button
-                    onPress={() => {console.log('oulala')}}
-                    title="Press me">
-                    You can press me
-                </Button>
+
             </Swiper>
         </View>
       )

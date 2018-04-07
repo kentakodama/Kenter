@@ -85,8 +85,8 @@ class Card extends React.Component {
                    })}
 
             </Swiper>
-
-          <TouchableOpacity onPress={() => this.handleTap()}><Text>Press this</Text></TouchableOpacity>
+            <Text>{this.props.profile.about}</Text>
+            <TouchableOpacity onPress={() => this.handleTap()}><Text>Press this</Text></TouchableOpacity>
           </Modal>
 
       )
