@@ -54,7 +54,6 @@ class Gallery extends React.Component {
                     )
                 }}
                 verticalSwipe={false}
-                onSwipedTop={() => { console.log('SUPER LIKED!')}}
                 onSwipedLeft={() => { console.log('dislike')}}
                 onSwipedRight={() => { console.log('matchedUserId', matchedUserId)}}
                 onSwiped={(cardIndex) => {console.log(cardIndex)}}

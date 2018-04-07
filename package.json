@@ -18,6 +18,8 @@
   },
   "dependencies": {
     "firebase": "^4.11.0",
+    "random-key": "^0.3.2",
+    "random-key-generator": "^1.2.3",
     "react": "16.2.0",
     "react-native": "0.52.0",
     "react-native-deck-swiper": "^1.4.9",
