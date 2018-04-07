@@ -12,7 +12,7 @@ class Gallery extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = {profiles: [], details: false, likedId: ''}
+    this.state = {profiles: [], details: false, likedId: '', likedIds: {}}
     console.log('rendering gallery');
   }
 
@@ -28,10 +28,23 @@ class Gallery extends React.Component {
       });
   }
 
-  handleLike(likedUserId) {
-    console.log('handleLike', likedUserId);
+  storeLikedId(likedUserId) {
     const currentUser = firebase.auth().currentUser
     this.props.addLikeId(currentUser, likedUserId)
+  }
+
+  checkIfMatch(likedId){
+    if(!this.state.likedIds[`${likedId}`]) { return }
+
+    this.handleLinking(likedId)
+      //handle linking
+
+  }
+
+  handleLinking(likedId){
+    const currentUser = firebase.auth().currentUser
+    //create user chat
+    //alert that a match is made 
   }
 
   render () {
@@ -48,14 +61,16 @@ class Gallery extends React.Component {
       )
 
     } else {
-
+      let matchedUserId = ''
+      let userLikes = {}
       return(
         <View pointerEvents={this.props.pointerEvents} style={styles.container}>
             <Swiper
                 cards={profiles}
                 renderCard={(card) => {
                   matchedUserId = card.id
-                  console.log('matchedUserId', matchedUserId);
+                  console.log('card.likeIds', card.likeIds);
+                  userLikes = Object.assign({}, card.likeIds)
                     return (
                         <Card profile={card}/>
 
@@ -64,9 +79,10 @@ class Gallery extends React.Component {
                 verticalSwipe={false}
                 onSwipedLeft={() => { console.log('dislike')}}
                 onSwipedRight={() => {
-                  this.setState({likedId: matchedUserId})
-                  console.log('this.state.likedId', this.state.likedId);
-                  this.handleLike(this.state.likedId)
+                  this.setState({likedId: matchedUserId, likedIds: userLikes })
+                  this.storeLikedId(this.state.likedId)
+                  this.checkIfMatch(this.state.likedId)
+
                 }}
                 onSwiped={(cardIndex) => {console.log(cardIndex)}}
                 onSwipedAll={() => {console.log('onSwipedAll')}}
