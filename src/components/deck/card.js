@@ -59,7 +59,7 @@ class Card extends React.Component {
       let album = this.state.references
       console.log(album);
       return(
-        <TouchableOpacity onPress={() => {this.setModalVisible(!this.state.modalVisible)}} style={{marginTop: 22}}>
+
           <Modal
             animationType="fade"
             transparent={false}
@@ -67,25 +67,17 @@ class Card extends React.Component {
             onRequestClose={() => {
               alert('Modal has been closed.');
             }}>
-            <TouchableOpacity style={{flex: 1, width: '100%', marginTop: 22}} onPress={() => {this.setModalVisible(!this.state.modalVisible)}}>
-              <Swiper horizontal={true}>
+            <TouchableOpacity onPress={() => {this.setModalVisible(!this.state.modalVisible)}} style={{flex: 1, width: '100%', marginTop: 22}}>
+
                   {album.map((item, key) => {
                      return (
                          <Image key={key} style={{width: '100%', height: '75%'}} source={{uri: item}} />
                      )
                    })}
-              </Swiper>
 
             </TouchableOpacity>
           </Modal>
 
-          <TouchableOpacity
-            onPress={() => {
-              this.setModalVisible(true);
-            }}>
-            <Text>Show Modal</Text>
-          </TouchableOpacity>
-        </TouchableOpacity>
       )
 
     } else {
