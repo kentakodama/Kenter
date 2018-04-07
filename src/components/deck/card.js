@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Modal, Image, FlatList, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, ScrollView, Modal, Image, FlatList, Text, View, TouchableOpacity } from 'react-native';
 import Swiper from 'react-native-swiper';
 import firebase from '../../firebase';
 // import ProfileModal from './profile_modal'
@@ -67,7 +67,7 @@ class Card extends React.Component {
             onRequestClose={() => {
               alert('Modal has been closed.');
             }}>
-            <TouchableOpacity onPress={() => {this.setModalVisible(!this.state.modalVisible)}} style={{flex: 1, width: '100%', marginTop: 22}}>
+            <Swiper horizontal={true}>
 
                   {album.map((item, key) => {
                      return (
@@ -75,7 +75,9 @@ class Card extends React.Component {
                      )
                    })}
 
-            </TouchableOpacity>
+            </Swiper>
+
+          <TouchableOpacity onPress={() => {this.setModalVisible(!this.state.modalVisible)}}><Text>Press this</Text></TouchableOpacity>
           </Modal>
 
       )
