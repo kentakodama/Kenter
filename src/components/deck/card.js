@@ -9,33 +9,55 @@ class Card extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = {modalVisible: false}
+    this.state = {modalVisible: false, references: []}
+  }
+
+  componentWillMount() {
+    this.loadProfile()
   }
 
 // <Image style={{flex: 1, width: '100%'}} source={{uri: this.props.profile.photoURL}}/>
-setModalVisible(visible) {
-  this.setState({modalVisible: visible});
-}
+  setModalVisible(visible) {
+    this.setState({modalVisible: visible});
+  }
 
-  render () {
-
-    const album = [];
+  loadProfile() {
     const profile = this.props.profile;
-    console.log(profile);
+    console.log('profile', profile);
     const userId = profile.id
     const photoRef = firebase.database().ref(`users/${userId}/photoReferences`)
     photoRef.once('value', (snapshot) => {
+
       const photoReferencesObject = snapshot.val();
       Object.values(photoReferencesObject).forEach((id) => {
-        const imageRef = firebase.storage().ref(`images/${userId}/${id}`)
-        imageRef.getDownloadURL().then((url) => album.push(url))
+        firebase.storage().ref(`images/${userId}/${id}`).getDownloadURL().then((url) => this.setState((prevState) => {
+          return {references: [...prevState.references, url]}
+        }))
         // .then((url) => console.log(url))
       })
     })
-    console.log(album);
+
+    // photoRef.once('value', (snapshot) => {
+    //
+    //   const photoReferencesObject = snapshot.val();
+    //   Object.values(photoReferencesObject).forEach((id) => {
+    //     const imageRef = firebase.storage().ref(`images/${userId}/${id}`)
+    //     imageRef.getDownloadURL().then((url) => this.setState((prevState) => {
+    //       return {references: [...prevState.references, url]}
+    //     }))
+    //     // .then((url) => console.log(url))
+    //   })
+    // })
+
+  }
+
+  render () {
+
+
 
     if(this.state.modalVisible) {
-
+      let album = this.state.references
+      console.log(album);
       return(
         <TouchableOpacity onPress={() => {this.setModalVisible(!this.state.modalVisible)}} style={{marginTop: 22}}>
           <Modal
@@ -46,7 +68,14 @@ setModalVisible(visible) {
               alert('Modal has been closed.');
             }}>
             <TouchableOpacity style={{flex: 1, width: '100%', marginTop: 22}} onPress={() => {this.setModalVisible(!this.state.modalVisible)}}>
-              <Image style={{flex: 1, width: '100%'}} source={{uri: this.props.profile.photoURL}}/>
+              <Swiper horizontal={true}>
+                  {album.map((item, key) => {
+                     return (
+                         <Image key={key} style={{width: '100%', height: '75%'}} source={{uri: item}} />
+                     )
+                   })}
+              </Swiper>
+
             </TouchableOpacity>
           </Modal>
 
