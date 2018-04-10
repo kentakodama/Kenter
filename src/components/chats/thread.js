@@ -11,21 +11,11 @@ class Thread extends React.Component {
   }
 
   componentWillMount(){
-    this.loadMessages()
+    // this.loadMessages()
   }
 
   loadMessages(){
-    this.setState({messages: []})
-    const threadId = this.props.navigation.state.params.threadId
-    const threadsRef = firebase.database().ref(`threads/${threadId}`);
-    threadsRef.on('value', (snapshot) => {
-      let messages = snapshot.val().messages
-      Object.keys(messages).forEach((message) => {
-        this.setState(prevState => {
-            return { messages: [...prevState.messages, messages[`${message}`]] }
-        })
-      })
-    });
+
   }
 
 
@@ -44,7 +34,16 @@ class Thread extends React.Component {
   }
 
   render() {
-    const messages = this.state.messages
+    const messages = [];
+    const threadId = this.props.navigation.state.params.threadId
+    const threadsRef = firebase.database().ref(`threads/${threadId}`);
+    threadsRef.on('value', (snapshot) => {
+      let loadedMessages = snapshot.val().messages
+      Object.keys(loadedMessages).forEach((message) => {
+        messages.push(loadedMessages[`${message}`])
+      })
+    });
+
     return(
       <View style={{flex: 1}}>
         <FlatList
@@ -59,7 +58,7 @@ class Thread extends React.Component {
            onChangeText={(text) => this.setState({text})}
            value={this.state.text}
          />
-         <Button style={{flex: 1}}
+         <Button style={{flex: 4}}
             onPress={()=> this.sendMessage()}
             title="Learn More"
             color="#841584"/>
