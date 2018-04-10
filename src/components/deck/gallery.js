@@ -39,18 +39,18 @@ class Gallery extends React.Component {
     const currentUser = firebase.auth().currentUser
     if(!likedPerson.likeIds[`${currentUser.uid}`]) { return }
 
-    this.handleLinking(likedPerson.id)
+    this.handleLinking(likedPerson)
       //handle linking
 
   }
 
-  handleLinking(likedId){
+  handleLinking(likedPerson){
 
     const key = random(64)
     const currentUser = firebase.auth().currentUser
     //create user chat
     //alert that a match is made
-    APIUtil.createThread(key, currentUser.uid, likedId);
+    APIUtil.createThread(key, currentUser, likedPerson);
   }
 
 

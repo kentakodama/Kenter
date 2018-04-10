@@ -23,8 +23,8 @@ class Thread extends React.Component {
     threadsRef.on('value', (snapshot) => {
       console.log('change in db', snapshot.val());
       let loadedMessages = snapshot.val().messages
-      if(loadedMessages.length === 0) { return }
-      this.props.receiveMessages(Object.values(loadedMessages))
+      if(!loadedMessages || loadedMessages.length === 0) { return }
+      this.props.receiveMessages(Object.values(snapshot.val().messages))
     });
 
   }
