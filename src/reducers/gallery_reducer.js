@@ -4,7 +4,7 @@ import { convertUsersToArray } from './selectors'
 const defaultState = [];
 
 const GalleryReducer = (state = defaultState, action) => {
-  Object.freeze(state);
+
   switch (action.type) {
     case RECEIVE_USERS_PROFILES:
       return convertUsersToArray(action.users);

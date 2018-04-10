@@ -29,15 +29,17 @@ class Gallery extends React.Component {
       });
   }
 
-  storeLikedId(likedUserId) {
+  storeLikedId(likedUser) {
     const currentUser = firebase.auth().currentUser
-    this.props.addLikeId(currentUser, likedUserId)
+    this.props.addLikeId(currentUser, likedUser.id)
   }
 
-  checkIfMatch(likedId){
-    if(!this.state.likedIds[`${likedId}`]) { return }
+  checkIfMatch(likedPerson){
+    console.log('likedPerson', likedPerson);
+    const currentUser = firebase.auth().currentUser
+    if(!likedPerson.likeIds[`${currentUser.uid}`]) { return }
 
-    this.handleLinking(likedId)
+    this.handleLinking(likedPerson.id)
       //handle linking
 
   }
@@ -48,34 +50,26 @@ class Gallery extends React.Component {
     const currentUser = firebase.auth().currentUser
     //create user chat
     //alert that a match is made
-    APIUtil.createThread(key, currentUser.id, likedId);
+    APIUtil.createThread(key, currentUser.uid, likedId);
   }
-  
+
 
   render () {
 
     const profiles = this.props.gallery
 
-    let details = this.state.details
+    // let details = this.state.details
+    //
+    //
+      let matchedUser = {}
 
-    if(details) {
-      return(
-        <View style={styles.container}>
-          <Text>LOADING</Text>
-        </View>
-      )
-
-    } else {
-      let matchedUserId = ''
-      let userLikes = {}
       return(
         <View pointerEvents={this.props.pointerEvents} style={styles.container}>
             <Swiper
                 cards={profiles}
                 renderCard={(card) => {
-                  matchedUserId = card.id
-                  console.log('card.likeIds', card.likeIds);
-                  userLikes = Object.assign({}, card.likeIds)
+                  matchedUser = Object.assign({}, card)
+
                     return (
                         <Card profile={card}/>
 
@@ -84,9 +78,9 @@ class Gallery extends React.Component {
                 verticalSwipe={false}
                 onSwipedLeft={() => { console.log('dislike')}}
                 onSwipedRight={() => {
-                  this.setState({likedId: matchedUserId, likedIds: userLikes })
-                  this.storeLikedId(this.state.likedId)
-                  this.checkIfMatch(this.state.likedId)
+
+                  this.storeLikedId(matchedUser)
+                  this.checkIfMatch(matchedUser)
 
                 }}
                 onSwiped={(cardIndex) => {console.log(cardIndex)}}
@@ -98,7 +92,7 @@ class Gallery extends React.Component {
             </Swiper>
         </View>
       )
-    }
+
   }
 }
 
