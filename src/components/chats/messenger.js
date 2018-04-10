@@ -8,7 +8,7 @@ class Messenger extends React.Component {
 
   constructor(props){
     super(props)
-    this.state = { threadIds:[] };
+    this.state = { threads:[] };
   }
 
   componentWillMount() {
@@ -19,9 +19,10 @@ class Messenger extends React.Component {
     const currentUser = firebase.auth().currentUser
     const threadsRef = firebase.database().ref(`users/${currentUser.uid}/threads`);
     threadsRef.on('value', (snapshot) => {
+      console.log(snapshot.val());
       Object.keys(snapshot.val()).forEach((threadId) => {
         this.setState(prevState => {
-          return { threadIds: [...prevState.threadIds, threadId] }
+          return { threadIds: [...prevState.threads, threadId] }
         })
       })
     });
