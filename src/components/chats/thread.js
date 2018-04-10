@@ -22,9 +22,10 @@ class Thread extends React.Component {
     const threadsRef = firebase.database().ref(`threads/${threadId}`);
     threadsRef.on('value', (snapshot) => {
       console.log('change in db', snapshot.val());
-      let loadedMessages = snapshot.val().messages
-      if(!loadedMessages || loadedMessages.length === 0) { return }
-      this.props.receiveMessages(Object.values(snapshot.val().messages))
+      let thread = snapshot.val()
+      if(!thread.messages || thread.messages.length === 0) { return }
+      const messagesPackage = { id: thread.id, messages: Object.values(thread.messages)}
+      this.props.receiveMessages(messagesPackage)
     });
 
   }

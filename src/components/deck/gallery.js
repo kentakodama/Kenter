@@ -7,6 +7,7 @@ import Swiper from 'react-native-deck-swiper';
 import * as APIUtil from '../../api_util/api_util'
 import { receiveUsersProfiles } from '../../actions/gallery_actions'
 import { addLikeId } from '../../actions/user_actions'
+import { receiveChatInfo } from '../../actions/chats_actions'
 import Card from './card'
 
 class Gallery extends React.Component {
@@ -51,6 +52,10 @@ class Gallery extends React.Component {
     //create user chat
     //alert that a match is made
     APIUtil.createThread(key, currentUser, likedPerson);
+
+    const chatInfo = { id: key, members: [currentUser.displayName, likedPerson.name]}
+
+    this.props.receiveChatInfo(chatInfo);
   }
 
 
@@ -123,7 +128,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   receiveUsersProfiles: (id) => dispatch(receiveUsersProfiles(id)),
-  addLikeId: (user, likeId) => dispatch(addLikeId(user, likeId))
+  addLikeId: (user, likeId) => dispatch(addLikeId(user, likeId)),
+  receiveChatInfo: (chatInfo) => dispatch(receiveChatInfo(chatInfo))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Gallery);

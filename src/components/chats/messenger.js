@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { StyleSheet, FlatList, Text, View} from 'react-native';
 import firebase from '../../firebase';
 import Thread from './thread'
@@ -16,6 +17,8 @@ class Messenger extends React.Component {
   }
 
   loadThreadIds() {
+    // grab threads from global state
+
     const currentUser = firebase.auth().currentUser
     const threadsRef = firebase.database().ref(`users/${currentUser.uid}/threads`);
     threadsRef.on('value', (snapshot) => {
@@ -30,13 +33,22 @@ class Messenger extends React.Component {
   }
 
   loadThread() {
+    //grabs from global state
 
   }
 
 
 
   render() {
-    const threadIds = this.state.threadIds
+    // const threadIds = this.state.threadIds
+    const chatsObject = this.props.chats
+    const chatsArray = [];
+    Object.keys(chatsObject).forEach((id) => {
+      let chat = { id: id, members: chatsObject[`${id}`].members, messages: chatsObject[`${id}`].messages };
+      chatsArray.push(chat)
+    })
+
+
     console.log(this.props);
     const { navigate } = this.props.navigation;
     return(
@@ -46,7 +58,7 @@ class Messenger extends React.Component {
         </View>
         <FlatList
             style={{flex: 1}}
-            data={threadIds}
+            data={chatsArray}
             renderItem={({item}) => <ThreadPreview navigation={this.props.navigation} item={item}/>}
             keyExtractor={(item, index) => index}
           />
@@ -74,4 +86,13 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Messenger
+
+const mapStateToProps = (state) => ({
+  chats: state.chats
+});
+
+// const mapDispatchToProps = (dispatch) => ({
+//   receiveMessages: (messages) => dispatch(receiveMessages(messages))
+// });
+
+export default connect(mapStateToProps)(Messenger);

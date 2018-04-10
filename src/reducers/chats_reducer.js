@@ -1,14 +1,20 @@
-import { RECEIVE_MESSAGES} from '../actions/chats_actions.js';
+import { RECEIVE_MESSAGES, RECEIVE_CHAT_INFO } from '../actions/chats_actions.js';
 import { orderMessages } from './selectors'
 
 
-const defaultState = [];
+const defaultState = {};
 
 const ChatsReducer = (state = defaultState, action) => {
-
+  let newState = {};
   switch (action.type) {
     case RECEIVE_MESSAGES:
-      return orderMessages(action.messages)
+      newState = Object.assign({}, state)
+      newState[action.thread.id] = orderMessages(action.thread.messages)
+      return newState;
+    case RECEIVE_CHAT_INFO:
+      newState = Object.assign({}, state)
+      newState[`${action.chatInfo.id}`] = { members: action.chatInfo.members, messages: [] };
+      return newState;
     default:
       return state;
   }
