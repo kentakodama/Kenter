@@ -58,9 +58,6 @@ class Gallery extends React.Component {
 
     const profiles = this.props.gallery
 
-    // let details = this.state.details
-    //
-    //
       let matchedUser = {}
 
       return(
