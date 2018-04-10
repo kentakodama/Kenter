@@ -1,21 +1,31 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import { StyleSheet, KeyboardAvoidingView, TouchableOpacity, TextInput, FlatList, Text, View} from 'react-native';
 import firebase from '../../firebase';
 import Message from './message'
+import { receiveMessages } from '../../actions/chats_actions'
 
 class Thread extends React.Component {
 
   constructor(props){
     super(props)
-    this.state = { messages:[], text: ''  };
-    this.scrollToEnd = this.scrollToEnd.bind(this);
+    this.state = { text: ''  };
+    // this.scrollToEnd = this.scrollToEnd.bind(this);
   }
 
   componentWillMount(){
-    // this.loadMessages()
+    this.loadMessages()
   }
 
   loadMessages(){
+    const threadId = this.props.navigation.state.params.threadId
+    const threadsRef = firebase.database().ref(`threads/${threadId}`);
+    threadsRef.on('value', (snapshot) => {
+      console.log('change in db', snapshot.val());
+      let loadedMessages = snapshot.val().messages
+      if(loadedMessages.length === 0) { return }
+      this.props.receiveMessages(Object.values(loadedMessages))
+    });
 
   }
 
@@ -34,34 +44,20 @@ class Thread extends React.Component {
     this.setState({text: ''})
   }
 
-  scrollToEnd() {
-    this.flatListRef.scrollToEnd({animated: false});
-  }
+  // scrollToEnd() {
+  //   if(this.props.messages.length === 0) { return }
+  //   this.flatListRef.scrollToEnd({animated: false});
+  // }
 
 
   render() {
-    let messages = [];
-    const threadId = this.props.navigation.state.params.threadId
-    const threadsRef = firebase.database().ref(`threads/${threadId}`);
-    threadsRef.on('value', (snapshot) => {
-
-      console.log('change in db');
-      let loadedMessages = snapshot.val().messages
-      Object.keys(loadedMessages).forEach((message) => {
-        messages.push(loadedMessages[`${message}`])
-      })
-    });
-
-    messages.sort((a, b) => a.timeStamp - b.timeStamp)
 
     return(
       <KeyboardAvoidingView style={{flex: 1}} behavior="padding">
 
         <FlatList
             style={{flex: 1}}
-            ref={ref => { this.flatListRef = ref; }}
-            onContentSizeChange={this.scrollToEnd}
-            data={messages}
+            data={this.props.messages}
             renderItem={({item}) => <Message data={item}/>}
             keyExtractor={(item, index) => index}
           />
@@ -83,4 +79,13 @@ class Thread extends React.Component {
 
 }
 
-export default Thread
+
+const mapStateToProps = (state) => ({
+  messages: state.chats
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  receiveMessages: (messages) => dispatch(receiveMessages(messages))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Thread);

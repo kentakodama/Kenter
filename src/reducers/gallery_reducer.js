@@ -3,7 +3,7 @@ import { convertUsersToArray } from './selectors'
 
 const defaultState = [];
 
-const UserReducer = (state = defaultState, action) => {
+const GalleryReducer = (state = defaultState, action) => {
   Object.freeze(state);
   switch (action.type) {
     case RECEIVE_USERS_PROFILES:
@@ -13,4 +13,4 @@ const UserReducer = (state = defaultState, action) => {
   }
 };
 
-export default UserReducer;
+export default GalleryReducer;

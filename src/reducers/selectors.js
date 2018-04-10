@@ -28,3 +28,7 @@ export const convertUsersToArray = (object) => {
   })
   return array;
 }
+
+export const orderMessages = (messages) => {
+  return messages.sort((a, b) => a.timeStamp - b.timeStamp)
+}
