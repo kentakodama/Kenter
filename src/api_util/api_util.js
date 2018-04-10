@@ -41,3 +41,22 @@ export const postLikeId = (user, likeId) => {
   updates[`${likeId}`] = true;
   likeIdsRef.update(updates)
 }
+
+export const createThread = (newThreadId, firstUser, secondUser) => {
+  const threadRef = db.ref(`threads/${newThreadId}`);
+  const newThread = {
+    id: newThreadId
+  }
+  threadRef.set(newThread)
+  storeThreadIdInUsers(newThreadId, firstUser, secondUser)
+}
+
+export const storeThreadIdInUsers = (threadId, firstUser, secondUser) => {
+  const threadObject = {}
+  threadObject[`${threadId}`] = true;
+  const firstUserThreads = db.ref(`users/${firstUser}/threads`);
+  const secondUserThreads = db.ref(`users/${secondUser}/threads`);
+  firstUserThreads.update(threadObject)
+  secondUserThreads.update(threadObject)
+
+}

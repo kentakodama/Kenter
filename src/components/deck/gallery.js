@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import firebase from '../../firebase';
+import random from 'random-key-generator';
 import Swiper from 'react-native-deck-swiper';
 import * as APIUtil from '../../api_util/api_util'
 import { receiveUsersProfiles } from '../../actions/gallery_actions'
@@ -42,10 +43,14 @@ class Gallery extends React.Component {
   }
 
   handleLinking(likedId){
+
+    const key = random(64)
     const currentUser = firebase.auth().currentUser
     //create user chat
-    //alert that a match is made 
+    //alert that a match is made
+    APIUtil.createThread(key, currentUser.id, likedId);
   }
+  
 
   render () {
 

@@ -8,6 +8,7 @@ import Main from '../components/main'
 import EditAbout from '../components/profile/edit_about'
 import AboutMe from '../components/profile/about_me'
 import SelectImage from '../components/profile/select_image'
+import Thread from '../components/chats/thread'
 
 const AppNavigator = StackNavigator(
 
@@ -32,6 +33,9 @@ const AppNavigator = StackNavigator(
     },
     SelectImage: {
       screen: SelectImage
+    },
+    Thread: {
+      screen: Thread
     }
   },
   {

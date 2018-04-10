@@ -45,7 +45,7 @@ class Main extends React.Component {
           renderSelectedIcon={() => <Icon name="envelope" size={22} color="#3496f0"/>}
           badgeText="1"
           onPress={() => this.setState({selectedTab: 'envelope'})}>
-          <Messenger/>
+          <Messenger navigation={this.props.navigation}/>
         </TabNavigator.Item>
       </TabNavigator>
     );
