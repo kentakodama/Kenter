@@ -8,6 +8,7 @@ class Thread extends React.Component {
   constructor(props){
     super(props)
     this.state = { messages:[], text: ''  };
+    this.scrollToEnd = this.scrollToEnd.bind(this);
   }
 
   componentWillMount(){
@@ -33,11 +34,18 @@ class Thread extends React.Component {
     this.setState({text: ''})
   }
 
+  scrollToEnd() {
+    this.flatListRef.scrollToEnd({animated: false});
+  }
+
+
   render() {
-    const messages = [];
+    let messages = [];
     const threadId = this.props.navigation.state.params.threadId
     const threadsRef = firebase.database().ref(`threads/${threadId}`);
     threadsRef.on('value', (snapshot) => {
+
+      console.log('change in db');
       let loadedMessages = snapshot.val().messages
       Object.keys(loadedMessages).forEach((message) => {
         messages.push(loadedMessages[`${message}`])
@@ -51,6 +59,8 @@ class Thread extends React.Component {
 
         <FlatList
             style={{flex: 1}}
+            ref={ref => { this.flatListRef = ref; }}
+            onContentSizeChange={this.scrollToEnd}
             data={messages}
             renderItem={({item}) => <Message data={item}/>}
             keyExtractor={(item, index) => index}
@@ -58,6 +68,7 @@ class Thread extends React.Component {
         <View style={{flex: 1, flexDirection: 'row'}}>
           <TextInput
            style={{flex: 4, height: 40, borderColor: 'gray', borderWidth: 1}}
+           onChange={this.scrollToEnd}
            onChangeText={(text) => this.setState({text})}
            value={this.state.text}
          />

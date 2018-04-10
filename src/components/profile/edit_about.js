@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, Button, Text, View, TextInput } from 'react-native';
+import { StyleSheet, Button, KeyboardAvoidingView, Text, View, TextInput } from 'react-native';
 import * as firebase from 'firebase';
 import { receiveUser, updateUserAboutMe } from '../../actions/user_actions'
 class EditAbout extends React.Component {
@@ -23,13 +23,13 @@ class EditAbout extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView style={styles.container}>
         <TextInput style={{flex: 1, width: '100%', backgroundColor: 'white'}}
                    onChangeText={(about) => this.setState({about})}
                    value={this.state.about} />
         <Button title={'save'} onPress={()=> this.handleAboutUpdate() }/>
 
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }
@@ -51,7 +51,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   receiveUser: (user) => dispatch(receiveUser(user)),
-  updateUserAboutMe: (user) => dispatch(updateUserAboutMe(user)) 
+  updateUserAboutMe: (user) => dispatch(updateUserAboutMe(user))
 });
 
 

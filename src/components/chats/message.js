@@ -13,8 +13,8 @@ class Message extends React.Component {
     const data = this.props.data
     return(
       <View style={{backgroundColor: 'yellow', height: 40}}>
-        <Text>{data.author}</Text>
-        <Text>{data.message}</Text>
+        <Text style={{fontSize: 20}}>{data.message}</Text>
+        <Text style={{fontSize: 10}}>{data.author}</Text>
       </View>
 
     )
