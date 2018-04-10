@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Button, TextInput, FlatList, Text, View} from 'react-native';
+import { StyleSheet, KeyboardAvoidingView, TouchableOpacity, TextInput, FlatList, Text, View} from 'react-native';
 import firebase from '../../firebase';
 import Message from './message'
 
@@ -44,25 +44,28 @@ class Thread extends React.Component {
       })
     });
 
+    messages.sort((a, b) => a.timeStamp - b.timeStamp)
+
     return(
-      <View style={{flex: 1}}>
+      <KeyboardAvoidingView style={{flex: 1}} behavior="padding">
+
         <FlatList
             style={{flex: 1}}
             data={messages}
             renderItem={({item}) => <Message data={item}/>}
             keyExtractor={(item, index) => index}
           />
-
+        <View style={{flex: 1, flexDirection: 'row'}}>
           <TextInput
-           style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+           style={{flex: 4, height: 40, borderColor: 'gray', borderWidth: 1}}
            onChangeText={(text) => this.setState({text})}
            value={this.state.text}
          />
-         <Button style={{flex: 4}}
+         <TouchableOpacity style={{flex: 1, backgroundColor: 'blue'}}
             onPress={()=> this.sendMessage()}
-            title="Learn More"
-            color="#841584"/>
-      </View>
+          ><Text style={{color: 'white', fontSize: 40}}>Submit</Text></TouchableOpacity>
+        </View>
+      </KeyboardAvoidingView>
     )
 
   }
