@@ -62,9 +62,9 @@ class Gallery extends React.Component {
   render () {
 
     const profiles = this.props.gallery
-
+    console.log('gallery', this.props);
       let matchedUser = {}
-
+      console.log('this.props.pointerEvents', this.props.pointerEvents);
       return(
         <View pointerEvents={this.props.pointerEvents} style={styles.container}>
             <Swiper
@@ -73,7 +73,7 @@ class Gallery extends React.Component {
                   matchedUser = Object.assign({}, card)
 
                     return (
-                        <Card profile={card}/>
+                        <Card profile={card} navigation={this.props.navigation} />
 
                     )
                 }}

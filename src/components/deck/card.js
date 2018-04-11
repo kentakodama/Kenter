@@ -15,32 +15,32 @@ class Card extends React.Component {
     this.state = {modalVisible: false, references: []}
   }
 
-  componentWillMount() {
-    this.loadProfile()
-  }
+  // componentWillMount() {
+  //   this.loadProfile()
+  // }
 
 // <Image style={{flex: 1, width: '100%'}} source={{uri: this.props.profile.photoURL}}/>
   setModalVisible(visible) {
     this.setState({modalVisible: visible});
   }
 
-  loadProfile() {
-    const profile = this.props.profile;
-    console.log('profile', profile);
-    const userId = profile.id
-    const photoRef = firebase.database().ref(`users/${userId}/photoReferences`)
-    photoRef.once('value', (snapshot) => {
-
-      const photoReferencesObject = snapshot.val();
-      Object.values(photoReferencesObject).forEach((id) => {
-        firebase.storage().ref(`images/${userId}/${id}`).getDownloadURL().then((url) => this.setState((prevState) => {
-          return {references: [...prevState.references, {url: `${url}`}]}
-        }))
-        // .then((url) => console.log(url))
-      })
-    })
-
-  }
+  // loadProfile() {
+  //   const profile = this.props.profile;
+  //   console.log('profile', profile);
+  //   const userId = profile.id
+  //   const photoRef = firebase.database().ref(`users/${userId}/photoReferences`)
+  //   photoRef.once('value', (snapshot) => {
+  //
+  //     const photoReferencesObject = snapshot.val();
+  //     Object.values(photoReferencesObject).forEach((id) => {
+  //       firebase.storage().ref(`images/${userId}/${id}`).getDownloadURL().then((url) => this.setState((prevState) => {
+  //         return {references: [...prevState.references, {url: `${url}`}]}
+  //       }))
+  //       // .then((url) => console.log(url))
+  //     })
+  //   })
+  //
+  // }
 
 
   handleTap() {
@@ -52,44 +52,46 @@ class Card extends React.Component {
 
 
 
-    if(this.state.modalVisible) {
-      let album = this.state.references
-      console.log(album);
-      return(
-
-          <Modal
-            animationType="fade"
-            transparent={false}
-            visible={this.state.modalVisible}
-            onRequestClose={() => {
-              alert('Modal has been closed.');
-            }}>
-            <Swiper horizontal={true} loop={false}>
-
-                  {album.map((item, key) => {
-                     return (
-                         <Image key={key} style={{width: '100%', height: '75%'}} source={{uri: item.url}} />
-                     )
-                   })}
-
-            </Swiper>
-            <Text>{this.props.profile.about}</Text>
-            <TouchableOpacity onPress={() => this.handleTap()}><Text>Press this</Text></TouchableOpacity>
-          </Modal>
-
-      )
-
-    } else {
+    // if(this.state.modalVisible) {
+    //   let album = this.state.references
+    //   console.log(album);
+    //   return(
+    //
+    //       <Modal
+    //         animationType="fade"
+    //         transparent={false}
+    //         visible={this.state.modalVisible}
+    //         onRequestClose={() => {
+    //           alert('Modal has been closed.');
+    //         }}>
+    //         <Swiper horizontal={true} loop={false}>
+    //
+    //               {album.map((item, key) => {
+    //                  return (
+    //                      <Image key={key} style={{width: '100%', height: '75%'}} source={{uri: item.url}} />
+    //                  )
+    //                })}
+    //
+    //         </Swiper>
+    //         <Text>{this.props.profile.about}</Text>
+    //         <TouchableOpacity onPress={() => this.handleTap()}><Text>Press this</Text></TouchableOpacity>
+    //       </Modal>
+    //
+    //   )
+    //
+    // } else {
+    console.log('card', this.props);
+      const { navigate } = this.props.navigation;
       return(
         <View style={styles.container}>
           <TouchableOpacity style={{flex: 4, width: '100%', backgroundColor: 'red'}}
-              onPress={() => this.handleTap()}>
+              onPress={() => navigate('ProfileDetails', {profile: this.props.profile})}>
               <Image style={{flex: 1, width: '100%'}} source={{uri: this.props.profile.photoURL}}/>
           </TouchableOpacity>
           <Text style={styles.text}>{this.props.profile.name}</Text>
         </View>
       )
-    }
+
   }
 }
 

@@ -4,6 +4,7 @@ import Login from '../authentication/login';
 import Splash from '../authentication/splash';
 import CompleteProfile from '../components/complete_profile';
 import PhotoGallery from '../components/deck/gallery';
+import ProfileDetails from '../components/deck/profile_details';
 import Main from '../components/main'
 import EditAbout from '../components/profile/edit_about'
 import AboutMe from '../components/profile/about_me'
@@ -36,6 +37,9 @@ const AppNavigator = StackNavigator(
     },
     Thread: {
       screen: Thread
+    },
+    ProfileDetails: {
+      screen: ProfileDetails
     }
   },
   {
