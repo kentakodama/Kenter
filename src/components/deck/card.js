@@ -12,7 +12,7 @@ class Card extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = {modalVisible: false, references: []}
+    this.state = {modalVisible: false, references: [], profile: this.props.profile}
   }
 
   // componentWillMount() {
@@ -85,10 +85,10 @@ class Card extends React.Component {
       return(
         <View style={styles.container}>
           <TouchableOpacity style={{flex: 4, width: '100%', backgroundColor: 'red'}}
-              onPress={() => navigate('ProfileDetails', {profile: this.props.profile})}>
-              <Image style={{flex: 1, width: '100%'}} source={{uri: this.props.profile.photoURL}}/>
+              onPress={() => navigate('ProfileDetails', {profile: this.state.profile})}>
+              <Image style={{flex: 1, width: '100%'}} source={{uri: this.state.profile.photoURL}}/>
           </TouchableOpacity>
-          <Text style={styles.text}>{this.props.profile.name}</Text>
+          <Text style={styles.text}>{this.state.profile.name}</Text>
         </View>
       )
 

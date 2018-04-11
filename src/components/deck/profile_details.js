@@ -34,7 +34,7 @@ class ProfileDetails extends Component {
   }
 
   render() {
-    const { goBack } = this.props.navigate
+    const { goBack } = this.props.navigation
     console.log('profile_details', this.props);
     console.log();
     let album = this.state.references
