@@ -9,7 +9,7 @@ const ChatsReducer = (state = defaultState, action) => {
   switch (action.type) {
     case RECEIVE_MESSAGES:
       newState = Object.assign({}, state)
-      newState[action.thread.id] = orderMessages(action.thread.messages)
+      newState[action.thread.id] = { members: action.thread.members, messages: orderMessages(action.thread.messages)}
       return newState;
     case RECEIVE_CHAT_INFO:
       newState = Object.assign({}, state)

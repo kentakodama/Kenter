@@ -48,7 +48,7 @@ class Messenger extends React.Component {
       chatsArray.push(chat)
     })
 
-
+    console.log('chatsArray', chatsArray);
     console.log(this.props);
     const { navigate } = this.props.navigation;
     return(
@@ -59,7 +59,7 @@ class Messenger extends React.Component {
         <FlatList
             style={{flex: 1}}
             data={chatsArray}
-            renderItem={({item}) => <ThreadPreview navigation={this.props.navigation} item={item}/>}
+            renderItem={({item}) => <ThreadPreview navigation={this.props.navigation} thread={item}/>}
             keyExtractor={(item, index) => index}
           />
 

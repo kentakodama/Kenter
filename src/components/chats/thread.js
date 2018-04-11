@@ -9,22 +9,28 @@ class Thread extends React.Component {
 
   constructor(props){
     super(props)
-    this.state = { text: ''  };
+    this.state = { text: '' , thread: {}, threadId: this.props.navigation.state.params.thread.id };
+    console.log(this.props.navigation.state.params.thread);
     // this.scrollToEnd = this.scrollToEnd.bind(this);
+
   }
 
   componentWillMount(){
     this.loadMessages()
   }
 
+  loadThreadFromProps(){
+    this.setState({thread: this.props.navigation.state.params.thread})
+  }
+
   loadMessages(){
-    const threadId = this.props.navigation.state.params.threadId
+    const threadId = this.props.navigation.state.params.thread.id
     const threadsRef = firebase.database().ref(`threads/${threadId}`);
     threadsRef.on('value', (snapshot) => {
-      console.log('change in db', snapshot.val());
       let thread = snapshot.val()
       if(!thread.messages || thread.messages.length === 0) { return }
-      const messagesPackage = { id: thread.id, messages: Object.values(thread.messages)}
+      const messagesPackage = { id: thread.id, members: thread.members, messages: Object.values(thread.messages)}
+      console.log(messagesPackage);
       this.props.receiveMessages(messagesPackage)
     });
 
@@ -32,7 +38,7 @@ class Thread extends React.Component {
 
 
   sendMessage(){
-    const threadId = this.props.navigation.state.params.threadId
+    const threadId = this.props.navigation.state.params.thread.id
     const message = this.state.text
     const name = firebase.auth().currentUser.displayName
     const time = Date.now()
@@ -53,12 +59,18 @@ class Thread extends React.Component {
 
   render() {
 
+    console.log('does this change?', this.props.thread);
+
+    const allThreads = this.props.chats
+    const thread = allThreads[`${this.state.threadId}`];
+    const messages = thread.messages
+
     return(
       <KeyboardAvoidingView style={{flex: 1}} behavior="padding">
 
         <FlatList
             style={{flex: 1}}
-            data={this.props.messages}
+            data={messages}
             renderItem={({item}) => <Message data={item}/>}
             keyExtractor={(item, index) => index}
           />
@@ -82,7 +94,7 @@ class Thread extends React.Component {
 
 
 const mapStateToProps = (state) => ({
-  messages: state.chats
+  chats: state.chats
 });
 
 const mapDispatchToProps = (dispatch) => ({

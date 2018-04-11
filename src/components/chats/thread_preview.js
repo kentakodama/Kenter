@@ -13,11 +13,12 @@ class ThreadPreview extends React.Component {
 
   render() {
     const { navigate } = this.props.navigation;
+  console.log('  this.props.thread', this.props.thread);
     return(
       <TouchableOpacity
-          onPress={()=> navigate('Thread', {threadId: this.props.item})}
+          onPress={()=> navigate('Thread', {thread: this.props.thread})}
           style={{backgroundColor: 'yellow', height: 40}}>
-        <Text>{this.props.item.members[0]}</Text>
+        <Text>{this.props.thread.members[0]}</Text>
       </TouchableOpacity>
     )
 
