@@ -40,18 +40,6 @@ class Card extends React.Component {
       })
     })
 
-    // photoRef.once('value', (snapshot) => {
-    //
-    //   const photoReferencesObject = snapshot.val();
-    //   Object.values(photoReferencesObject).forEach((id) => {
-    //     const imageRef = firebase.storage().ref(`images/${userId}/${id}`)
-    //     imageRef.getDownloadURL().then((url) => this.setState((prevState) => {
-    //       return {references: [...prevState.references, url]}
-    //     }))
-    //     // .then((url) => console.log(url))
-    //   })
-    // })
-
   }
 
 
