@@ -15,6 +15,12 @@ const ChatsReducer = (state = defaultState, action) => {
       newState = Object.assign({}, state)
       newState[`${action.chatInfo.id}`] = { members: action.chatInfo.members, messages: [] };
       return newState;
+    case 'persist/REHYDRATE':
+      if(!action.payload) {
+        return {}
+      } else {
+        return action.payload.chats
+      }
     default:
       return state;
   }

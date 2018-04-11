@@ -59,8 +59,6 @@ class Thread extends React.Component {
 
   render() {
 
-    console.log('does this change?', this.props.thread);
-
     const allThreads = this.props.chats
     const thread = allThreads[`${this.state.threadId}`];
     const messages = thread.messages
