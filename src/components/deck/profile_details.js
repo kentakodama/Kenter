@@ -32,7 +32,7 @@ class ProfileDetails extends Component {
     // })
 
   }
-  
+
 
   render() {
     const { goBack } = this.props.navigation
