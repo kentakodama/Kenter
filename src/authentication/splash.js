@@ -6,7 +6,7 @@ import { AccessToken } from 'react-native-fbsdk';
 import firebase from '../firebase';
 import { receiveUser } from '../actions/user_actions';
 
-import Profile from '../components/complete_profile'
+
 import Main from '../components/main'
 
 class Splash extends React.Component {

@@ -2,7 +2,7 @@ import { StackNavigator} from 'react-navigation';
 
 import Login from '../authentication/login';
 import Splash from '../authentication/splash';
-import CompleteProfile from '../components/complete_profile';
+
 import PhotoGallery from '../components/deck/gallery';
 import ProfileDetails from '../components/deck/profile_details';
 import Main from '../components/main'
@@ -19,9 +19,6 @@ const AppNavigator = StackNavigator(
     },
     Login: {
       screen: Login
-    },
-    CompleteProfile: {
-      screen: CompleteProfile
     },
     Main: {
       screen: Main
