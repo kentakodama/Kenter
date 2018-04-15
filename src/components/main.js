@@ -21,28 +21,28 @@ class Main extends React.Component {
       <TabNavigator style={styles.container}>
         <TabNavigator.Item
           selected={this.state.selectedTab === 'profile'}
-          title="Profile"
+          tabStyle={styles.tab}
           selectedTitleStyle={{color: "#3496f0"}}
-          renderIcon={() => <Icon name="user" size={22} color="#666"/>}
-          renderSelectedIcon={() => <Icon name="user" size={22} color="#3496f0"/>}
+          renderIcon={() => <Icon name="user" size={22} color="white"/>}
+          renderSelectedIcon={() => <Icon name="user" size={22} color="white"/>}
           onPress={() => this.setState({selectedTab: 'profile'})}>
           <Profile navigation={this.props.navigation}/>
         </TabNavigator.Item>
         <TabNavigator.Item
           selected={this.state.selectedTab === 'users'}
-          title="Gallery"
+          tabStyle={styles.tab}
           selectedTitleStyle={{color: "#3496f0"}}
-          renderIcon={() => <Icon name="users" size={22} color="#666"/>}
-          renderSelectedIcon={() => <Icon name="users" size={22} color="#3496f0"/>}
+          renderIcon={() => <Icon name="users" size={22} color="white"/>}
+          renderSelectedIcon={() => <Icon name="users" size={22} color="white"/>}
           onPress={() => this.setState({selectedTab: 'users'})}>
           <Gallery navigation={this.props.navigation}/>
         </TabNavigator.Item>
         <TabNavigator.Item
           selected={this.state.selectedTab === 'envelope'}
-          title="Messages"
+          tabStyle={styles.tab}
           selectedTitleStyle={{color: "#3496f0"}}
-          renderIcon={() => <Icon name="envelope" size={22} color="#666"/>}
-          renderSelectedIcon={() => <Icon name="envelope" size={22} color="#3496f0"/>}
+          renderIcon={() => <Icon name="envelope" size={22} color="white"/>}
+          renderSelectedIcon={() => <Icon name="envelope" size={22} color="white"/>}
           badgeText="1"
           onPress={() => this.setState({selectedTab: 'envelope'})}>
           <Messenger navigation={this.props.navigation}/>
@@ -53,11 +53,14 @@ class Main extends React.Component {
 }
 
 const styles = StyleSheet.create({
+
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    alignItems: 'center'
+  },
+  tab: {
+    backgroundColor: '#FF69B4'
   },
   welcome: {
     fontSize: 20,
