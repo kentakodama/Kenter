@@ -13,6 +13,7 @@ class PhotoGallery extends React.Component {
    render(){
      const album = this.props.album;
      //cant put styles in swiper only nested children
+     console.log('album', album);
      return (
 
          <Swiper style={{flex: 1}} horizontal={true}>
