@@ -1,9 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { connect } from 'react-redux';
 import * as firebase from 'firebase';
 import AboutMe from './about_me'
 import SelectImage from './select_image'
 import PhotoGallery from './photo_gallery'
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 class Profile extends React.Component {
 
@@ -16,21 +18,28 @@ class Profile extends React.Component {
     navigate('EditAbout')
   }
 
+  getFirstNameOnly(fullName) {
+    return fullName.split(' ')[0]
+  }
+
   render() {
+
+
+
     const { navigate } = this.props.navigation
     return (
       <View style={styles.container}>
         <PhotoGallery style={styles.photoGallery}/>
 
         <View style={styles.nameAndButtonContainer}>
-          <View style={styles.nameContainer}><Text>Name</Text></View>
+          <View style={styles.name}><Text style={styles.nameText}>{this.getFirstNameOnly(this.props.user.name)}</Text></View>
           <View style={styles.buttonsContainer}>
+            <TouchableOpacity onPress={()=> this.editAbout()}>
+              <Icon name="edit" size={40} color="white"/>
+            </TouchableOpacity>
             <TouchableOpacity
                 onPress={()=> navigate('SelectImage')}>
-                <Text style={styles.text}>Upload a photo</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={()=> this.editAbout()}>
-                <Text style={styles.text}>Edit your profile text</Text>
+                <Icon name="image" size={35} color="white"/>
             </TouchableOpacity>
           </View>
         </View>
@@ -57,16 +66,28 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: 'red'
   },
-  nameContainer: {
-    flex: 1
+  name: {
+    flex: 3,
+    justifyContent: 'center'
+  },
+  nameText: {
+    fontSize: 30,
+    color: 'white',
+    marginLeft: 20
   },
   buttonsContainer: {
-    flex: 1,
-    flexDirection: 'row'
+    flex: 2,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center'
   },
   aboutMe: {
     flex: 1
   }
 });
 
-export default Profile
+const mapStateToProps = (state) => ({
+  user: state.user
+});
+
+export default connect(mapStateToProps)(Profile);

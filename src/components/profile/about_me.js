@@ -19,9 +19,9 @@ class AboutMe extends React.Component {
   render() {
     return (
 
-          <View style={styles.container}>
-            <Text>{this.props.about}</Text>
-          </View>
+        <View style={styles.container}>
+          <Text style={styles.text}>{this.props.about}</Text>
+        </View>
 
     );
   }
@@ -38,8 +38,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   text: {
-    fontSize: 40,
-    color: 'white'
+    fontSize: 20,
+    color: 'black'
   }
 });
 
