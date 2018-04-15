@@ -11,22 +11,18 @@ class AboutMe extends React.Component {
   }
 
 
-  editAbout(){
-    const { navigate } = this.props.navigation;
-    navigate('EditAbout')
-  }
+  // editAbout(){
+  //   const { navigate } = this.props.navigation;
+  //   navigate('EditAbout')
+  // }
 
   render() {
     return (
-      <View style={styles.container}>
-          <TouchableHighlight onPress={()=> this.editAbout()}
-                  style={{flex: 1, width: '100%', backgroundColor: 'purple'}}>
-                    <Text style={styles.text}>Edit your profile text</Text>
-          </TouchableHighlight>
-        <View style={{flex: 4, width: '100%', backgroundColor: 'gray'}}>
-          <Text>{this.props.about}</Text>
-        </View>
-      </View>
+
+          <View style={styles.container}>
+            <Text>{this.props.about}</Text>
+          </View>
+
     );
   }
 }

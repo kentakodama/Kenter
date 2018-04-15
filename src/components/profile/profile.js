@@ -9,21 +9,32 @@ class Profile extends React.Component {
 
   constructor(props){
     super(props)
-    this.state = { introMessage: '', pic1URL: '', pic2URL: '', pic3URL: '' };
-    console.log(props);
+  }
+
+  editAbout(){
+    const { navigate } = this.props.navigation;
+    navigate('EditAbout')
   }
 
   render() {
     const { navigate } = this.props.navigation
     return (
       <View style={styles.container}>
-        <Text style={{flex: 1}}>LOGO</Text>
-        <PhotoGallery style={{flex: 1, width: '100%'}}/>
-        <TouchableOpacity style={{flex: 1, width: '100%', backgroundColor: 'blue'}}
-            onPress={()=> navigate('SelectImage')}>
-            <Text style={styles.text}>Upload a photo</Text>
-        </TouchableOpacity>
-        <AboutMe navigation={this.props.navigation} style={{flex: 1, width: '100%'}}/>
+        <PhotoGallery style={styles.photoGallery}/>
+
+        <View style={styles.nameAndButtonContainer}>
+          <View style={styles.nameContainer}><Text>Name</Text></View>
+          <View style={styles.buttonsContainer}>
+            <TouchableOpacity
+                onPress={()=> navigate('SelectImage')}>
+                <Text style={styles.text}>Upload a photo</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={()=> this.editAbout()}>
+                <Text style={styles.text}>Edit your profile text</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+        <AboutMe navigation={this.props.navigation} style={styles.aboutMe}/>
       </View>
     );
   }
@@ -37,9 +48,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  text: {
-    fontSize: 40,
-    color: 'white'
+  photoGallery: {
+    flex: 1,
+    width: '100%'
+  },
+  nameAndButtonContainer: {
+    flex: .3,
+    flexDirection: 'row',
+    backgroundColor: 'red'
+  },
+  nameContainer: {
+    flex: 1
+  },
+  buttonsContainer: {
+    flex: 1,
+    flexDirection: 'row'
+  },
+  aboutMe: {
+    flex: 1
   }
 });
 

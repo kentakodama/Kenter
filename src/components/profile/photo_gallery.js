@@ -15,10 +15,10 @@ class PhotoGallery extends React.Component {
      //cant put styles in swiper only nested children
      return (
 
-         <Swiper horizontal={true}>
+         <Swiper style={{flex: 1}} horizontal={true}>
              {album.map((item, key) => {
                 return (
-                    <Image key={key} style={styles.images}source={{uri: `data:image/gif;base64,${item.data}`}} />
+                    <Image key={key} style={styles.images} source={{uri: `data:image/gif;base64,${item.data}`}} />
                 )
               })}
          </Swiper>
